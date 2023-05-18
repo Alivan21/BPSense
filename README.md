@@ -6,9 +6,13 @@
 
 ## Tech Stack
 
-## **Client:** Next, React
+## **Client:** 
+- Next
+- React
 
-## **Server:** Php, Laravel
+## **Server:** 
+- PHP
+- Laravel
 
 ---
 
