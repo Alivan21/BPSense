@@ -1,9 +1,7 @@
-import "../styles/global.css";
-import { Montserrat } from "next/font/google";
+import "@/styles/global.css";
+import { montserrat } from "@/styles/font";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
-
-const bodyClass = `flex min-h-screen flex-col items-center justify-between bg-gray-100 ${montserrat.className}`;
+const bodyClass = `bg-gray-100 ${montserrat.className}`;
 
 export const metadata = {
   title: "BPSense",
@@ -13,7 +11,23 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={bodyClass}>{children}</body>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </head>
+      <body className={bodyClass}>
+        <main className="bg-white max-w-[580px] mx-auto min-h-screen rounded-sm shadow-md p-8">
+          {children}
+          <footer className="text-center mt-20">
+            <span>©2023 All rights reserved by Mother's Prayer</span>
+          </footer>
+        </main>
+      </body>
     </html>
   );
 }
