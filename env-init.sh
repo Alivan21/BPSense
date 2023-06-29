@@ -1,2 +1,4 @@
-cd ./services/backend && cp .env.example .env
-cd ../frontend && cp .env.example .env
+#!/bin/bash
+
+# Your initialization script commands here
+cd ./Services/Backend && cp .env.example .env

@@ -1,7 +1,8 @@
 SERVICES=all
 
+# Target to initialize the environment
 init:
-	bash env-init.sh
+	@echo "Initializing the environment..."
 
 install:
 	bash install.sh
