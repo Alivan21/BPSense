@@ -6,7 +6,6 @@ use App\Http\Requests\Auth\AuthLoginRequest;
 use App\Http\Requests\Auth\AuthRegisterRequest;
 use App\Services\AuthService;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -29,7 +28,7 @@ class AuthController extends Controller
 
     public function login(AuthLoginRequest $request)
     {
-        $result = $this->authService->login($request->all());
+        $result = $this->authService->login($request->only('identifier', 'password'));
 
         return $this->apiResponse('User berhasil login',$result, 200);
     }
@@ -40,5 +39,11 @@ class AuthController extends Controller
         $result = $this->authService->register($request->all());
 
         return $this->apiResponse('User berhasil dibuat',$result, 200);
+    }
+
+    public function logout(){
+        $result = $this->authService->logout();
+
+        return $this->apiResponse('User berhasil logout',$result, 200);
     }
 }

@@ -25,16 +25,17 @@ class AuthLoginRequest extends apiRequest
     public function rules()
     {
         return [
-            'email' => 'required|string',
-            'password' => 'required|string',
+            'identifier' => 'required|string',
+            'password' => 'required|string|min:8',
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required' => 'Kolom email wajib diisi.',
+            'identifier.required' => 'Kolom email wajib diisi.',
             'password.required' => 'Kolom password wajib diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
         ];
     }
 }

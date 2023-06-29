@@ -16,18 +16,19 @@ class AuthService {
 
     public function login(array $data)
     {
-        if (auth()->attempt($data)) {
-            $expiresAt = $this->time->addDays(1);
-            $token = auth()
-                ->user()
-                ->createToken('auth_token', [], $expiresAt)
-                ->plainTextToken;
+        dd($data);
+        // if (auth()->attempt($data)) {
+        //     $expiresAt = $this->time->addDays(1);
+        //     $token = auth()
+        //         ->user()
+        //         ->createToken('auth_token', [], $expiresAt)
+        //         ->plainTextToken;
 
-            return [
-                "token" => $token,
-                "expires_at" => $expiresAt
-            ];
-        }
+        //     return [
+        //         "token" => $token,
+        //         "expires_at" => $expiresAt
+        //     ];
+        // }
 
         throw new UnauthorizedException('Login gagal, Email/password anda salah.');
     }
@@ -37,6 +38,12 @@ class AuthService {
         $data['password'] = bcrypt($data['password']);
         $user = $this->user->create($data);
         return $user;
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        return true;
     }
 }
 
