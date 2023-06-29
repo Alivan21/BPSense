@@ -1,9 +1,18 @@
-import Image from "next/image";
+import Card from "@/components/home/card";
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   return (
-    <main className="bg-gray-50 min-w-[640px] min-h-screen rounded-sm shadow-md p-5">
-      <h1>Hello World</h1>
-    </main>
+    <div className="flex flex-col gap-8">
+      <Navbar />
+      <section className="flex flex-col items-center gap-5">
+        <h1 className="text-xl font-bold text-gray-800 mx-auto">Menu</h1>
+        <Card type="face" />
+        <Card type="qr" />
+        <Card type="input" />
+        <Card type="jadwal" />
+        <Card type="kontak" />
+      </section>
+    </div>
   );
 }
