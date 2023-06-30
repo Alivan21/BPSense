@@ -26,7 +26,7 @@ class AuthRegisterRequest extends apiRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|unique:users,email|string|max:255',
+            'nip' => 'required|unique:users,nip|string|numeric',
             'password' => 'required|string|min:8|confirmed',
             'phone_number' => 'required|string|max:15',
         ];
@@ -43,10 +43,10 @@ class AuthRegisterRequest extends apiRequest
             'name.required' => 'Nama harus diisi',
             'name.string' => 'Nama harus berupa string',
             'name.max' => 'Nama maksimal 255 karakter',
-            'email.required' => 'Email harus diisi',
-            'email.unique' => 'Email sudah terdaftar',
-            'email.string' => 'Email harus berupa string',
-            'email.max' => 'Email maksimal 255 karakter',
+            'nip.required' => 'nip harus diisi',
+            'nip.string' => 'nip harus berupa string',
+            'nip.unique' => 'nip sudah terdaftar',
+            'nip.numeric' => 'nip harus berupa angka',
             'password.required' => 'Password harus diisi',
             'password.string' => 'Password harus berupa string',
             'password.min' => 'Password minimal 8 karakter',

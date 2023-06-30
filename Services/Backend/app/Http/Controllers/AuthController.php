@@ -28,7 +28,11 @@ class AuthController extends Controller
 
     public function login(AuthLoginRequest $request)
     {
-        $result = $this->authService->login($request->only('identifier', 'password'));
+        $result = $this->authService->login($request->only('nip', 'password'));
+
+        if (!$result) {
+            return $this->apiResponse('Login gagal, Email/password anda salah', null, 401);
+        }
 
         return $this->apiResponse('User berhasil login',$result, 200);
     }

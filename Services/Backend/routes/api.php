@@ -23,19 +23,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
-        // benerin bang logic nya ada dibawahnya
-        // Route::post('login', [AuthController::class, 'login'])->name('login');
-
-        Route::post('login', LoginController::class)->name('login');
+        Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::post('register', [AuthController::class, 'register'])->name('register');
-
         Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout');
     });
 
     Route::prefix('/dashboard')->group(function() {
         Route::get('/', DashboardController::class);
 
-        Route::prefix('/officer')->group(function() { 
+        Route::prefix('/officer')->group(function() {
             Route::get('/', [OfficerController::class, 'index'])->name('officer.index');
             Route::post('/', [OfficerController::class, 'store'])->name('officer.store');
             Route::get('/{officer}', [OfficerController::class, 'show'])->name('officer.show');

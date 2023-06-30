@@ -16,21 +16,20 @@ class AuthService {
 
     public function login(array $data)
     {
-        dd($data);
-        // if (auth()->attempt($data)) {
-        //     $expiresAt = $this->time->addDays(1);
-        //     $token = auth()
-        //         ->user()
-        //         ->createToken('auth_token', [], $expiresAt)
-        //         ->plainTextToken;
+        if(auth()->attempt($data)){
+            $expiresAt = $this->time->addDays(1);
+            $token = auth()
+                ->user()
+                ->createToken('auth_token', [], $expiresAt)
+                ->plainTextToken;
 
-        //     return [
-        //         "token" => $token,
-        //         "expires_at" => $expiresAt
-        //     ];
-        // }
+            return [
+                "token" => $token,
+                "expires_at" => $expiresAt
+            ];
+        }
 
-        throw new UnauthorizedException('Login gagal, Email/password anda salah.');
+        return false;
     }
 
     public function register(array $data)
