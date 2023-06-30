@@ -29,7 +29,7 @@ class AuthService {
             ];
         }
 
-        return false;
+        throw new UnauthorizedException("Email atau password salah", 401);
     }
 
     public function register(array $data)

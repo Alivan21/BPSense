@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Traits\ApiResponse;
+use App\Commons\Traits\ApiResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
 abstract class apiRequest extends FormRequest

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Commons\Traits\ApiResponse;
 use App\Http\Requests\Auth\AuthLoginRequest;
 use App\Http\Requests\Auth\AuthRegisterRequest;
 use App\Services\AuthService;
-use App\Traits\ApiResponse;
 
 class AuthController extends Controller
 {
@@ -29,10 +29,6 @@ class AuthController extends Controller
     public function login(AuthLoginRequest $request)
     {
         $result = $this->authService->login($request->only('nip', 'password'));
-
-        if (!$result) {
-            return $this->apiResponse('Login gagal, Email/password anda salah', null, 401);
-        }
 
         return $this->apiResponse('User berhasil login',$result, 200);
     }

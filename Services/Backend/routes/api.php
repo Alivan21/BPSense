@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\OfficerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-
+use \App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,6 +38,10 @@ Route::prefix('v1')->group(function () {
             Route::put('/{officer}', [OfficerController::class, 'update'])->name('officer.update');
             Route::delete('/{officer}', [OfficerController::class, 'destroy'])->name('officer.destroy');
             Route::get('/search', [OfficerController::class, 'search'])->name('officer.search');
+        });
+
+        Route::prefix('/user')->group(function() {
+            Route::get('/search', [UserController::class, 'findNip'])->name('user.find.nip');
         });
     });
 });

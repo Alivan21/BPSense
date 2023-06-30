@@ -14,10 +14,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * @property int $id
+ * @property string $nip
  * @property string $name
  * @property string $email
  * @property string $phone_number
  * @property string $password
+ * @property string $role_id
 **/
 class User extends Authenticatable implements JWTSubject
 {
