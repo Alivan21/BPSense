@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Commons\Traits\ApiResponse;
+use App\Commons\Traits\apiResponse;
 use App\Http\Resources\User\UserResource;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    use ApiResponse;
+    use apiResponse;
     protected $userService;
     public function __construct(UserService $userService)
     {

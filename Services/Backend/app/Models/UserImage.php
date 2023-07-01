@@ -23,7 +23,7 @@ class UserImage extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function officer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

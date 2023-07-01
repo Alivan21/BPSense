@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class UserRepository implements UserRepositoryInterface
 {
-    protected Builder $user;
+    protected Builder $query;
 
     public function __construct(User $user)
     {

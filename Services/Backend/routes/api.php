@@ -28,20 +28,26 @@ Route::prefix('v1')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout');
     });
 
-    Route::prefix('/dashboard')->group(function() {
-        Route::get('/', DashboardController::class);
-
-        Route::prefix('/officer')->group(function() {
-            Route::get('/', [OfficerController::class, 'index'])->name('officer.index');
-            Route::post('/', [OfficerController::class, 'store'])->name('officer.store');
-            Route::get('/{officer}', [OfficerController::class, 'show'])->name('officer.show');
-            Route::put('/{officer}', [OfficerController::class, 'update'])->name('officer.update');
-            Route::delete('/{officer}', [OfficerController::class, 'destroy'])->name('officer.destroy');
-            Route::get('/search', [OfficerController::class, 'search'])->name('officer.search');
+    Route::middleware(['auth:api'])->group(function () {
+        Route::prefix('dashboard')->middleware(['is-admin'])->group(function() {
+            Route::get('/', DashboardController::class);
+            
+            Route::prefix('officer')->group(function() {
+                Route::get('/', [OfficerController::class, 'index'])->name('officer.index');
+                Route::post('/', [OfficerController::class, 'store'])->name('officer.store');
+                Route::get('/search', [OfficerController::class, 'search'])->name('officer.search');
+                Route::get('/{officer}', [OfficerController::class, 'show'])->name('officer.show');
+                Route::post('/{officer}', [OfficerController::class, 'update'])->name('officer.update');
+                Route::delete('/{officer}', [OfficerController::class, 'destroy'])->name('officer.destroy');
+            });
         });
-
-        Route::prefix('/user')->group(function() {
-            Route::get('/search', [UserController::class, 'findNip'])->name('user.find.nip');
+    
+        Route::prefix('officer')->group(function() {
+            
         });
+    });
+
+    Route::prefix('/user')->group(function() {
+        Route::get('/search', [UserController::class, 'findNip'])->name('user.find.nip');
     });
 });

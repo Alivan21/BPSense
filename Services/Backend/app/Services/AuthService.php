@@ -16,13 +16,17 @@ class AuthService {
 
     public function login(array $data)
     {
-        if(auth()->attempt($data)){
-            $expiresAt = $this->time->addDays(1);
-            $token = auth()
-                ->user()
-                ->createToken('auth_token', [], $expiresAt)
-                ->plainTextToken;
+        if (is_numeric($data['identifier']) && $data['identifier']) {
+            $data['nip'] = $data['identifier'];
+        } else {
+            $data['username'] = $data['identifier'];
+        }
 
+        unset($data['identifier']);
+
+        if($token = auth()->attempt($data)){
+            $expiresAt = $this->time->addDays(1);
+            
             return [
                 "token" => $token,
                 "expires_at" => $expiresAt

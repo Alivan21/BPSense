@@ -25,7 +25,7 @@ class AuthLoginRequest extends apiRequest
     public function rules()
     {
         return [
-            'nip' => 'required|string|numeric',
+            'identifier' => 'required', 
             'password' => 'required|string|min:8',
         ];
     }
@@ -33,8 +33,7 @@ class AuthLoginRequest extends apiRequest
     public function messages()
     {
         return [
-            'nip.required' => 'Kolom nip wajib diisi.',
-            'nip.numeric' => 'Kolom nip harus berupa angka.',
+            'identifier.required' => 'Kolom username / nip wajib diisi.',
             'password.required' => 'Kolom password wajib diisi.',
             'password.min' => 'Password minimal 8 karakter.',
         ];

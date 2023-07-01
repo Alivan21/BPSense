@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Commons\Traits\ApiResponse;
+use App\Commons\Traits\apiResponse;
 use App\Http\Requests\Auth\AuthLoginRequest;
 use App\Http\Requests\Auth\AuthRegisterRequest;
 use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    use ApiResponse;
+    use apiResponse;
     /**
      * @var authService
      */
@@ -28,7 +28,7 @@ class AuthController extends Controller
 
     public function login(AuthLoginRequest $request)
     {
-        $result = $this->authService->login($request->only('nip', 'password'));
+        $result = $this->authService->login($request->validated());
 
         return $this->apiResponse('User berhasil login',$result, 200);
     }
