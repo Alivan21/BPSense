@@ -1,5 +1,6 @@
-import Card from "@/components/home/card";
-import Navbar from "@/components/navbar";
+import Card from "@/components/home/Card";
+import InputCode from "@/components/home/InputCode";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
@@ -9,8 +10,7 @@ export default function Home() {
         <h1 className="text-xl font-bold text-gray-800 mx-auto">Menu</h1>
         <Card type="face" />
         <Card type="qr" />
-        <Card type="input" />
-        <Card type="jadwal" />
+        <InputCode />
         <Card type="kontak" />
       </section>
     </div>
