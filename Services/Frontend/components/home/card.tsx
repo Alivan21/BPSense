@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type CardType = "face" | "qr" | "input" | "jadwal" | "kontak";
 
@@ -24,7 +25,7 @@ export default function Card(props: CardProps) {
   };
 
   return (
-    <div className="md:w-[24rem] sm:w-[20rem] xs:w-[16rem] h-[7rem] p-4 border-2 border-blue-600 rounded-xl flex gap-5 items-center">
+    <div className="md:w-[24rem] sm:w-[20rem] xs:w-[16rem] h-[7rem] p-4 border-2 border-blue-600 rounded-xl flex gap-5 items-center cursor-pointer hover:scale-105">
       <div className="border border-blue-600 rounded-lg">
         <Image
           src={URL_MAP[props.type]}
@@ -37,7 +38,7 @@ export default function Card(props: CardProps) {
           placeholder="blur"
         />
       </div>
-      <span className="text-lg font-semibold">{TITLE_MAP[props.type]}</span>
+      <span className="text-lg font-semibold text-gray-800">{TITLE_MAP[props.type]}</span>
     </div>
   );
 }
