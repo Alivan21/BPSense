@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -36,6 +37,8 @@ class User extends Authenticatable implements JWTSubject
         'username',
         'email',
         'phone',
+        'profile',
+        'qrcode',
         'password',
         'role_id'
     ];
@@ -59,6 +62,39 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+
+    // /**
+    //  * Get the value indicating whether the IDs are incrementing.
+    //  *
+    //  * @return bool
+    //  */
+    // public function getIncrementing()
+    // {
+    //     return false;
+    // }
+
+    // /**
+    //  * Get the auto-incrementing key type.
+    //  *
+    //  * @return string
+    //  */
+    // public function getKeyType()
+    // {
+    //     return 'string';   
+    // }
+
+    //     /**
+    //  * The "booting" function of model
+    //  *
+    //  * @return void
+    //  */
+    // protected static function boot() {
+    //     static::creating(function ($model) {
+    //         if ( ! $model->getKey()) {
+    //             $model->{$model->getKeyName()} = (string) Str::uuid();
+    //         }
+    //     });
+    // }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

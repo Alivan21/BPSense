@@ -11,6 +11,10 @@ use App\Http\Requests\Admin\Officer\OfficerUpdateRequest;
 use App\Http\Resources\OfficerResource;
 use App\Models\User;
 use App\Services\Admin\OfficerService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class OfficerController extends Controller
 {
@@ -81,5 +85,25 @@ class OfficerController extends Controller
     public function search(OfficerSearchRequest $request)
     {
         return $this->apiSuccess(OfficerResource::collection($this->officerService->search($request->validated()['keyword'] ?? '')), "Ok");
+    }
+
+    public function test(?string $id, Request $request)
+    {
+        // dd($request->file('qrcode'));
+        // $data = User::findOrFail($id);
+        // $qrcode = Hash::make($data->id);
+        $qrcode = "Test";
+        // $image = QrCode::format('png')->merge('/public/assets/logo/logo.png', 0.35)->size(300)->generate($qrcode);
+        $image = QrCode::generate($qrcode);
+
+        $path = "qrcode/12.png"; // Generate a unique file name
+    
+        Storage::put($path , $image, 'public');
+        $qrcode_url = Storage::url($path);
+
+        return response()->json([
+            'qrcode' => $qrcode,
+            'qrcode_url' => $qrcode_url
+        ]);
     }
 }

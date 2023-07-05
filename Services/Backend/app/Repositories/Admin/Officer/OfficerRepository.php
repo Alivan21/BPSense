@@ -33,7 +33,11 @@ class OfficerRepository implements OfficerRepositoryInterface
 
     public function updateData(User $officer, array $data) {
         return $officer->update($data) ? $officer : false;
+    }
 
+    public function updateQrCode(User $officer, string $path) {
+        $officer->qrcode = $path;
+        return $officer->save() ? $officer : false;
     }
 
     public function deleteData(User $officer)

@@ -2,12 +2,16 @@
 
 namespace App\Providers;
 
-use App\Repositories\Admin\Officer\OfficerRepositoryInterface;
-use App\Repositories\Admin\OfficerImage\OfficerImageRepository;
-use App\Repositories\Admin\OfficerImage\OfficerImageRepositoryInterface;
+use App\Repositories\OfficerImage\OfficerImageRepository;
+use App\Repositories\OfficerImage\OfficerImageRepositoryInterface;
+use App\Repositories\Officer\OfficerRepository;
+use App\Repositories\Officer\OfficerRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
-use App\Repositories\User\OfficerRepository;
+use App\Repositories\Admin\Officer\OfficerRepository as AdminOfficerRepository;
+use App\Repositories\Admin\Officer\OfficerRepositoryInterface as AdminOfficerRepositoryInterface;
+use App\Repositories\Storage\StorageRepository;
+use App\Repositories\Storage\StorageRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -29,7 +33,11 @@ class AppServiceProvider extends ServiceProvider
             OfficerImageRepository::class,
             OfficerImageRepositoryInterface::class,
             RoleRepository::class,
-            RoleRepositoryInterface::class
+            RoleRepositoryInterface::class,
+            AdminOfficerRepository::class,
+            AdminOfficerRepositoryInterface::class,
+            StorageRepository::class,
+            StorageRepositoryInterface::class,
         );
     }
 

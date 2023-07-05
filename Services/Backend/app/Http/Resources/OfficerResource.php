@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Config;
 
 class OfficerResource extends JsonResource
 {
@@ -15,14 +16,17 @@ class OfficerResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'username' => $this->username,
+            'id' => $this->id,
             'nip' => $this->nip,
+            'name' => $this->name,
+            'profile' => $this->profile ? Config::get('filesystems.disks.s3.url') . "/" . $this->profile : null,
+            'qrcode' => $this->qrcode ? Config::get('filesystems.disks.s3.url') . "/" . $this->qrcode : null,
             'email' => $this->email,
             'phone' => $this->phone,
+            'role' => $this->role->name,
             'images' => $this->images->map(function ($image) {
                 return [
-                    'url' => $image->url
+                    'url' => Config::get('filesystems.disks.s3.url') . "/" . $image->path
                 ];
             })
         ];

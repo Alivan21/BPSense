@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Officer;
+namespace App\Http\Requests\Officer;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -26,9 +26,9 @@ class OfficerUpdateRequest extends FormRequest
     {
         return [
             'name' => "required|string|regex:/^[A-Za-z\s']+$/",
-            'nip' => 'required|numeric|digits:16|' . Rule::unique('users')->ignore($this->route('officer')),
-            'phone' => 'numeric|digits_between:11,14|' . Rule::unique('users')->ignore($this->route('officer')),
-            'email' => 'email|not_regex:/\s/|' . Rule::unique('users')->ignore($this->route('officer')),
+            'profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'phone' => 'required|numeric|digits_between:11,15|' . Rule::unique('users')->ignore(auth()->user()->id),
+            'email' => 'required|email|not_regex:/\s/|' . Rule::unique('users')->ignore(auth()->user()->id),
         ];
     }
 }

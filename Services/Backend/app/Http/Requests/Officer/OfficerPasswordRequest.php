@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Officer;
+namespace App\Http\Requests\Officer;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OfficerStoreRequest extends FormRequest
+class OfficerPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class OfficerStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => "required|string|regex:/^[A-Za-z\s']+$/",
-            'nip' => 'required|numeric|digits:16|unique:users',
-            'phone' => 'numeric|digits_between:11,14|unique:users',
-            'email' => 'email|not_regex:/\s/|unique:users',
+            'password' => 'required|string|min:8',
         ];
     }
 }

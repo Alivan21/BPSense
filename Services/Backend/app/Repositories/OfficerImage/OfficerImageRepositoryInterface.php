@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Admin\OfficerImage;
+namespace App\Repositories\OfficerImage;
 
 interface OfficerImageRepositoryInterface
 {

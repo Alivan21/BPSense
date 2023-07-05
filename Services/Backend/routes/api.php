@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\OfficerController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\OfficerController  as AdminOfficerController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Officer\OfficerController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Hash;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,21 +35,30 @@ Route::prefix('v1')->group(function () {
             Route::get('/', DashboardController::class);
             
             Route::prefix('officer')->group(function() {
-                Route::get('/', [OfficerController::class, 'index'])->name('officer.index');
-                Route::post('/', [OfficerController::class, 'store'])->name('officer.store');
-                Route::get('/search', [OfficerController::class, 'search'])->name('officer.search');
-                Route::get('/{officer}', [OfficerController::class, 'show'])->name('officer.show');
-                Route::post('/{officer}', [OfficerController::class, 'update'])->name('officer.update');
-                Route::delete('/{officer}', [OfficerController::class, 'destroy'])->name('officer.destroy');
+                Route::get('/', [AdminOfficerController::class, 'index'])->name('admin.officer.index');
+                Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
+                Route::post('/test/{id}', [AdminOfficerController::class, 'test'])->name('admin.officer.test');
+                Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
+                Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
+                Route::post('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
+                Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
             });
         });
     
-        Route::prefix('officer')->group(function() {
-            
+        Route::prefix('officer')->middleware('is-officer')->group(function() {
+            Route::get('/', [OfficerController::class, 'index'])->name('officer.show');
+            Route::post('/update', [OfficerController::class, 'update'])->name('officer.update');
+            Route::post('/password/update', [OfficerController::class, 'updatePassword'])->name('officer.password.update');
+            Route::post('/image/update', [OfficerController::class, 'updateImage'])->name('officer.image.update');
         });
     });
 
     Route::prefix('/user')->group(function() {
         Route::get('/search', [UserController::class, 'findNip'])->name('user.find.nip');
     });
+    
+    Route::get('/test', function() {
+        return Hash::make('password');
+    });
+
 });
