@@ -1,6 +1,7 @@
 import Card from "@/components/home/Card";
-import InputCode from "@/components/home/InputCode";
+import InputCodeCard from "@/components/home/InputCodeCard";
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -8,9 +9,13 @@ export default function Home() {
       <Navbar />
       <section className="flex flex-col items-center gap-5">
         <h1 className="text-xl font-bold text-gray-800 mx-auto">Menu</h1>
-        <Card type="face" />
-        <Card type="qr" />
-        <InputCode />
+        <Link href="/face">
+          <Card type="face" />
+        </Link>
+        <Link href="/qr">
+          <Card type="qr" />
+        </Link>
+        <InputCodeCard />
         <Card type="kontak" />
       </section>
     </div>
