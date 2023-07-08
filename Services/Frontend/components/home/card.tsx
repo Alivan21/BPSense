@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 type CardType = "face" | "qr" | "input" | "jadwal" | "kontak";
 
@@ -25,14 +24,14 @@ export default function Card(props: CardProps) {
   };
 
   return (
-    <div className="md:w-[24rem] sm:w-[20rem] xs:w-[16rem] h-[7rem] p-4 border-2 border-blue-600 rounded-xl flex gap-5 items-center cursor-pointer hover:scale-105">
+    <div className="w-[19.5rem] md:w-[24rem] h-[7rem] p-4 border-2 border-blue-600 rounded-xl flex gap-5 items-center cursor-pointer hover:scale-105">
       <div className="border border-blue-600 rounded-lg">
         <Image
           src={URL_MAP[props.type]}
           alt={"test"}
           height={0}
           width={0}
-          className="w-28 max-w-xs h-20"
+          className="min-w-[7rem] max-w-xs h-20"
           priority
           blurDataURL={URL_MAP[props.type]}
           placeholder="blur"
