@@ -8,8 +8,6 @@ use App\Repositories\Officer\OfficerRepository;
 use App\Repositories\Officer\OfficerRepositoryInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
-use App\Repositories\Admin\Officer\OfficerRepository as AdminOfficerRepository;
-use App\Repositories\Admin\Officer\OfficerRepositoryInterface as AdminOfficerRepositoryInterface;
 use App\Repositories\Storage\StorageRepository;
 use App\Repositories\Storage\StorageRepositoryInterface;
 use App\Repositories\User\UserRepository;
@@ -30,19 +28,69 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(TelescopeServiceProvider::class);
         }
 
+        /**
+         * User
+         * @var UserRepositoryInterface
+         * @var UserRepository
+         */
         $this->app->bind(
             UserRepositoryInterface::class,
-            UserRepository::class,
+            UserRepository::class
+        );
+
+        /**
+         * Officer
+         * @var OfficerRepositoryInterface
+         * @var OfficerRepository
+         */
+        $this->app->bind(
             OfficerRepositoryInterface::class,
-            OfficerRepository::class,
-            OfficerImageRepository::class,
+            OfficerRepository::class
+
+        );
+
+        /**
+         * Officer Image
+         * @var OfficerImageRepositoryInterface
+         * @var OfficerImageRepository
+         */
+        $this->app->bind(
             OfficerImageRepositoryInterface::class,
-            RoleRepository::class,
+            OfficerImageRepository::class
+
+        );
+
+        /**
+         * Role
+         * @var RoleRepositoryInterface
+         * @var RoleRepository
+         */
+        $this->app->bind(
             RoleRepositoryInterface::class,
-            AdminOfficerRepository::class,
-            AdminOfficerRepositoryInterface::class,
-            StorageRepository::class,
+            RoleRepository::class,
+
+        );
+
+        /**
+         *  Officer
+         * @var OfficerRepositoryInterface
+         * @var OfficerRepository
+         */
+        $this->app->bind(
+            'App\Repositories\Admin\Officer\OfficerRepositoryInterface',
+            'App\Repositories\Admin\Officer\OfficerRepository',
+
+        );
+
+        /**
+         *  Storage
+         * @var StorageRepositoryInterface
+         * @var StorageRepository
+         */
+        $this->app->bind(
             StorageRepositoryInterface::class,
+            StorageRepository::class,
+
         );
     }
 

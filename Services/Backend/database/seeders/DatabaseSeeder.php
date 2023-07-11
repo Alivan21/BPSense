@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'username' => 'admin',
             'password' => Hash::make('password'),
+            'birth_date' => '1999-01-01',
             'role_id' => 1
         ]]);
 
@@ -41,6 +42,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Petugas 1',
                 'nip' => '12345678',
                 'password' => Hash::make('password'),
+                'birth_date' => '1999-01-01',
                 'role_id' => 2
             ]
         );
