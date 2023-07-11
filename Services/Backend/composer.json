@@ -12,6 +12,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
+        "laravel/telescope": "^4.15",
         "laravel/tinker": "^2.7",
         "league/flysystem-aws-s3-v3": "^3.15",
         "simplesoftwareio/simple-qrcode": "~4",
@@ -55,7 +56,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/telescope" 
+            ]
         }
     },
     "config": {

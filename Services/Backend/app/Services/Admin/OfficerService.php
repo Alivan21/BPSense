@@ -7,7 +7,11 @@ use App\Repositories\Admin\Officer\OfficerRepository;
 use App\Repositories\OfficerImage\OfficerImageRepository;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Storage\StorageRepository;
-use Illuminate\Http\UploadedFile;
+
+use App\Repositories\Admin\Officer\OfficerRepositoryInterface;
+// use App\Repositories\OfficerImage\OfficerImageRepositoryInterface;
+// use App\Repositories\Role\RoleRepositoryInterface;
+// use App\Repositories\Storage\StorageRepositoryInterface;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +19,7 @@ class OfficerService
 {
     protected $officerRepository, $roleRepository, $officerImageRepository, $storageRepository;
 
-    public function __construct(OfficerRepository $officerRepository, RoleRepository $roleRepository, OfficerImageRepository $officerImageRepository, StorageRepository $storageRepository)
+    public function __construct(OfficerRepositoryInterface $officerRepository, RoleRepository $roleRepository, OfficerImageRepository $officerImageRepository, StorageRepository $storageRepository)
     {
         $this->officerRepository = $officerRepository;
         $this->officerImageRepository = $officerImageRepository;
@@ -34,15 +38,10 @@ class OfficerService
         $data['role_id'] = $this->roleRepository->getIdbyRoleName('officer');
         $officer = $this->officerRepository->createData($data);
 
-        $data['qrcode'] = $this->officerRepository->updateQrCode($officer, $this->generateQrCode($officer));
+        $this->officerRepository->updateQrCode($officer, $this->generateQrCode($officer));
         
         if ($dataImages !== [] && count($dataImages['image']) > 0) {
-            foreach ($dataImages['image'] as $image) {
-                $this->officerImageRepository->createData([
-                    'path' => $this->storageRepository->putFile(hash('sha256', $officer->id), $image, 'public'),
-                    'user_id' => $officer->id
-                ]);
-            }
+            $this->addDatasetImages($officer, $dataImages);
         }
 
         return $officer->refresh();
@@ -57,12 +56,7 @@ class OfficerService
                 $officerImage->forceDelete();
             }
 
-            foreach ($dataImages['image'] as $image) {
-                $this->officerImageRepository->createData([
-                    'path' => $this->storageRepository->putFile(hash('sha256', $officer->id), $image, 'public'),
-                    'user_id' => $officer->id
-                ]);
-            }
+            $this->addDatasetImages($officer, $dataImages);
         }
 
         return $this->officerRepository->updateData($officer, $data) ? $officer->refresh() : false;
@@ -78,8 +72,17 @@ class OfficerService
         return $this->officerRepository->searchDataWithNameOrNip($keyword);
     }
 
+    protected function addDatasetImages(User $officer, array $dataImages){
+        foreach ($dataImages['image'] as $image) {
+            $this->officerImageRepository->createData([
+                'path' => $this->storageRepository->putFile(hash('sha256', $officer->id), $image, 'public'),
+                'user_id' => $officer->id
+            ]);
+        }
+    }
+
     protected function generateQrCode (User $officer) {
-        $image = QrCode::size(300)->generate(Hash::make($officer->id) . "|" . Hash::make($officer->nip));
+        $image = QrCode::size(300)->generate(Hash::make($officer->id) . "||" . Hash::make($officer->nip));
         $path = hash('sha256', $officer->id) . '/qrcode/qrcode.png'; 
         $this->storageRepository->put($path, $image, 'public');
 

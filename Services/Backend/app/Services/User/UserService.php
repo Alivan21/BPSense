@@ -2,36 +2,34 @@
 
 namespace App\Services\User;
 
-use App\Models\User;
-use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Hash;
+
 class UserService
 {
     protected $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
-
         $this->userRepository = $userRepository;
-
     }
 
-    public function searchByNipAndName(?string $nip = '', ?string $name = '')
+    public function findOrFailByNipAndBirthDate(array $data)
     {
-        $nip = $nip ?? '';
-        $name = $name ?? '';
-        return $this->userRepository->searchByNipAndName($nip, $name);
+        return $this->userRepository->findOrFailByNipAndBirthDate($data);
     }
 
-    public function findOrFailByNip(string $nip)
-    {
+    public function scanQrCode(?string $key) {
+        if (!$key || $key == "") {
+            return false;
+        }
 
-        return $this->userRepository->findOrFailByNip($nip);
-    }
+        foreach ($this->userRepository->getAllDataOfficer() as $data) {
+            if (Hash::check($data->id, explode("||", $key)[0]) && Hash::check($data->nip, explode("||", $key)[1])) {
+                return $data;
+            }
+        }
 
-    public function searchByName(string $name)
-    {
-        return $this->userRepository->searchByName($name);
+        return false;
     }
 }

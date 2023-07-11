@@ -4,5 +4,5 @@ namespace App\Repositories\Role;
 
 interface RoleRepositoryInterface
 {
-    public function getIdbyRoleName(string $id);
+    public function getIdbyRoleName(string $name);
 }

@@ -26,7 +26,7 @@ class AuthService {
 
         if($token = auth()->attempt($data)){
             $expiresAt = $this->time->addDays(1);
-            
+
             return [
                 "token" => $token,
                 "expires_at" => $expiresAt

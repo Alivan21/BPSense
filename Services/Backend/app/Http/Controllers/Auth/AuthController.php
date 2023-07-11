@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Commons\Traits\apiResponse;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthLoginRequest;
 use App\Http\Requests\Auth\AuthRegisterRequest;
 use App\Services\AuthService;
@@ -30,7 +31,7 @@ class AuthController extends Controller
     {
         $result = $this->authService->login($request->validated());
 
-        return $this->apiResponse('User berhasil login',$result, 200);
+        return $this->apiSuccess('Ok',$result, 200);
     }
 
 
@@ -38,12 +39,12 @@ class AuthController extends Controller
     {
         $result = $this->authService->register($request->all());
 
-        return $this->apiResponse('User berhasil dibuat',$result, 200);
+        return $this->apiSuccess('Ok',$result, 200);
     }
 
     public function logout(){
         $result = $this->authService->logout();
 
-        return $this->apiResponse('User berhasil logout',$result, 200);
+        return $this->apiSuccess('Ok', $result, 200);
     }
 }
