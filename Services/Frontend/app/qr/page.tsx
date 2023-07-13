@@ -4,7 +4,7 @@ import React from "react";
 
 export default function QRPage() {
   return (
-    <section className="flex flex-col items-center gap-5">
+    <>
       <div className="flex gap-3 items-center w-full">
         <Link href="/" className="fa-solid fa-angle-left text-xl text-gray-800 hover:text-gray-900" />
         <h1 className="text-blue-600 font-bold text-xl">Cek Petugas QR Code</h1>
@@ -19,6 +19,6 @@ export default function QRPage() {
       >
         Kembali Ke Menu
       </Link>
-    </section>
+    </>
   );
 }

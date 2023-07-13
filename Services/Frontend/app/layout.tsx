@@ -21,12 +21,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={bodyClass}>
-        <main className="bg-white max-w-[580px] mx-auto max-h-screen h-screen rounded-sm shadow-md p-8">
-          {children}
-        </main>
-        <footer className="bg-white max-w-[580px] mx-auto rounded-sm shadow-md text-center py-2">
-          <span>©2023 All rights reserved by Mother's Prayer</span>
-        </footer>
+        <div className="flex flex-col bg-white max-w-[580px] mx-auto min-h-screen rounded-sm shadow-md p-8">
+          <main className="flex flex-col gap-8 mb-auto">{children}</main>
+          <footer className="text-center mt-7 -mb-4">©2023 All rights reserved by Mother's Prayer</footer>
+        </div>
       </body>
     </html>
   );

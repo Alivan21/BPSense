@@ -16,9 +16,9 @@ export default function Card(props: CardProps) {
   };
 
   const TITLE_MAP: Record<CardType, string> = {
-    face: "Cek Petugas dengan Face Recognition",
-    qr: "Cek Petugas dengan QR Code",
-    input: "Cek Petugas dengan Input Kode",
+    face: "Cek Petugas dengan Scan Wajah",
+    qr: "Cek Petugas dengan Kode QR",
+    input: "Cek Petugas dengan Kode Petugas",
     jadwal: "Lihat Jadwal Petugas",
     kontak: "Hubungi Kami",
   };
