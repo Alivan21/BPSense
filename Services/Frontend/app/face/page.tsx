@@ -4,7 +4,7 @@ import React from "react";
 
 export default function QRPage() {
   return (
-    <section className="flex flex-col items-center gap-6">
+    <>
       <div className="flex gap-3 items-center w-full">
         <Link href="/" className="fa-solid fa-angle-left text-xl text-gray-800 hover:text-gray-900" />
         <h1 className="text-blue-600 font-bold text-xl">Cek Petugas dengan Face Recognition</h1>
@@ -15,10 +15,10 @@ export default function QRPage() {
       </div>
       <Link
         href="/"
-        className="w-full px-5 py-2.5 mt-10 text-white text-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm"
+        className="w-full px-5 py-2.5 text-white text-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm"
       >
         Kembali Ke Menu
       </Link>
-    </section>
+    </>
   );
 }

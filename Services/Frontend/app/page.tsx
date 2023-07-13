@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-8">
+    <>
       <Navbar />
       <section className="flex flex-col items-center gap-5">
-        <h1 className="text-xl font-bold text-gray-800 mx-auto">Menu</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mx-auto">Menu</h1>
         <Link href="/face">
           <Card type="face" />
         </Link>
@@ -18,6 +18,6 @@ export default function Home() {
         <InputCodeCard />
         <Card type="kontak" />
       </section>
-    </div>
+    </>
   );
 }
