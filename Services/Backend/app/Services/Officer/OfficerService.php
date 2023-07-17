@@ -9,6 +9,9 @@ use App\Repositories\Role\RoleRepository;
 use App\Repositories\Storage\StorageRepository;
 
 use App\Repositories\Officer\OfficerRepositoryInterface;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
+
 // use App\Repositories\OfficerImage\OfficerImageRepositoryInterface;
 // use App\Repositories\Role\RoleRepositoryInterface;
 // use App\Repositories\Storage\StorageRepositoryInterface;
@@ -45,10 +48,21 @@ class OfficerService
             }
 
             foreach ($dataImages['image'] as $image) {
+                $path = $this->storageRepository->putFile(hash('sha256', $officer->id), $image, 'public');
                 $this->officerImageRepository->createData([
-                    'path' => $this->storageRepository->putFile(hash('sha256', $officer->id), $image, 'public'),
+                    'path' => $path,
                     'user_id' => $officer->id
                 ]);
+
+                // $client = new Client();
+                // $response = $client->post('https://teachablemachine.withgoogle.com/models/Qb16rx5VJ/inputs',
+                //     [
+                //         'json' => [
+                //             'label' => $officer->id,
+                //             'imageUrl' => Storage::url($path),
+                //         ],
+                //     ]
+                // );
             }
         }
         

@@ -5,11 +5,7 @@ use App\Http\Controllers\Admin\OfficerController  as AdminOfficerController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Officer\OfficerController;
 use App\Http\Controllers\User\UserController;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Generator;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +55,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('/user')->group(function() {
         Route::post('/search', [UserController::class, 'searchByNipAndBirthDate'])->name('user.find.input');
         Route::post('/scan-qr-code', [UserController::class, 'scanQrCode'])->name('user.find.qrcode');
+        Route::post('/get-images', [UserController::class, 'getImages'])->name('user.image.index');
     });
     
     // Route::get('/test', function() {

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Config;
 
 class OfficerResource extends JsonResource
 {
@@ -18,6 +19,11 @@ class OfficerResource extends JsonResource
             'name' => $this->name,
             'nip' => $this->nip,
             'profile' => $this->profile ?? null,
+            'images' => $this->images->map(function ($image) {
+                return [
+                    'url' => Config::get('filesystems.disks.s3.url') . "/" . $image->path
+                ];
+            })
         ];
     }
 }
