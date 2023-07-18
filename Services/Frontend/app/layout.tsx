@@ -1,5 +1,6 @@
 import "@/styles/global.css";
 import { montserrat } from "@/styles/font";
+import QueryProvider from "@/utils/Providers/QueryProvider";
 
 const bodyClass = `bg-gray-100 ${montserrat.className}`;
 
@@ -21,10 +22,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={bodyClass}>
-        <div className="flex flex-col bg-white max-w-[580px] mx-auto min-h-screen rounded-sm shadow-md p-8">
-          <main className="flex flex-col gap-8 mb-auto">{children}</main>
+        <main className="flex flex-col bg-white max-w-[580px] mx-auto min-h-screen rounded-sm shadow-md p-8">
+          <section className="flex flex-col gap-8 mb-auto">
+            <QueryProvider>{children}</QueryProvider>
+          </section>
           <footer className="text-center mt-7 -mb-4">©2023 All rights reserved by Mother's Prayer</footer>
-        </div>
+        </main>
       </body>
     </html>
   );
