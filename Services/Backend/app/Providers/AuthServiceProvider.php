@@ -27,6 +27,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        User::with(['role', 'images'])->get();
+        // User::with(['role', 'images'])->get();
     }
 }
