@@ -2,6 +2,7 @@ import Card from "@/components/home/Card";
 import InputCodeCard from "@/components/home/InputCodeCard";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import Test from "./test";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         </Link>
         <InputCodeCard />
         <Card type="kontak" />
+        <Test />
       </section>
     </>
   );
