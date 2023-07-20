@@ -51,6 +51,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/update', [OfficerController::class, 'update'])->name('officer.update');
             Route::put('/password/update', [OfficerController::class, 'updatePassword'])->name('officer.password.update');
             Route::post('/image/update', [OfficerController::class, 'updateImage'])->name('officer.image.update');
+            
         });
     });
 
