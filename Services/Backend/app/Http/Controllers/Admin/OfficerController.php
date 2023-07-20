@@ -15,11 +15,12 @@ use App\Services\Admin\OfficerService;
 class OfficerController extends Controller
 {
     use apiResponse;
+
     protected $officerService;
 
     public function __construct(OfficerService $officerService)
     {
-        $this->middleware(CheckAdmin::class)->only(['update', 'show', 'destroy', 'resetPassword', 'updateStatus']);
+        $this->middleware(CheckAdmin::class)->only(['update', 'show', 'destroy', 'resetPassword']);
         $this->officerService = $officerService;
     }
 
@@ -36,7 +37,7 @@ class OfficerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(OfficerStoreRequest $request)
@@ -47,7 +48,7 @@ class OfficerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $officer
+     * @param \App\Models\User $officer
      * @return \Illuminate\Http\Response
      */
     public function show(User $officer)
@@ -58,8 +59,8 @@ class OfficerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $officer
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User $officer
      * @return \Illuminate\Http\Response
      */
     public function update(OfficerUpdateRequest $request, User $officer)
@@ -70,7 +71,7 @@ class OfficerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $officer
+     * @param \App\Models\User $officer
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $officer)
@@ -88,8 +89,8 @@ class OfficerController extends Controller
         return $this->officerService->resetPassword($officer->loadMissing(['images', 'role'])) ? $this->apiSuccess(new OfficerResource($this->officerService->resetPassword($officer->loadMissing(['images', 'role']))), "Updated") : $this->apiError("Gagal Reset Password");
     }
 
-    public function updateStatus(User $officer)
+    public function updateStatus(int $id)
     {
-        return $this->officerService->updateStatus($officer->loadMissing(['images', 'role'])) ? $this->apiSuccess(new OfficerResource($this->officerService->updateStatus($officer->loadMissing(['images', 'role']))), "Updated") : $this->apiError("Gagal Update Status");
+        return $this->officerService->updateStatus($id);
     }
 }

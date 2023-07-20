@@ -39,24 +39,24 @@ Route::prefix('v1')->group(function () {
                 // Route::post('/test/{id}', [AdminOfficerController::class, 'test'])->name('admin.officer.test');
                 Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
                 Route::put('/reset/password/{officer}', [AdminOfficerController::class, 'resetPassword'])->name('admin.officer.reset.password');
-                Route::put('/update/status/{officer}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
+                Route::put('/update/status/{id}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
                 Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
                 Route::put('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
                 Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
             });
         });
-    
+
         Route::prefix('officer')->middleware('is-officer')->group(function () {
             Route::get('/', [OfficerController::class, 'index'])->name('officer.show');
             Route::post('/update', [OfficerController::class, 'update'])->name('officer.update');
             Route::put('/password/update', [OfficerController::class, 'updatePassword'])->name('officer.password.update');
             Route::post('/image/update', [OfficerController::class, 'updateImage'])->name('officer.image.update');
-            
+
         });
     });
 
     Route::prefix('/user')->group(function () {
-        Route::get('/search', [UserController::class, 'searchByNipAndBirthDate'])->name('user.find.input');
+        Route::post('/search', [UserController::class, 'searchByNipAndBirthDate'])->name('user.find.input');
         Route::post('/scan-qr-code', [UserController::class, 'scanQrCode'])->name('user.find.qrcode');
         Route::post('/get-images', [UserController::class, 'getImages'])->name('user.image.index');
     });
@@ -124,7 +124,7 @@ Route::prefix('v1')->group(function () {
     //     return response()->json([
     //         "token-csrf" => $token
     //     ]);
-        
+
     // });
 
 });

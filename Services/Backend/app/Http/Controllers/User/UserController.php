@@ -50,7 +50,7 @@ class UserController extends Controller
         }
     }
 
-    public function getImages() 
+    public function getImages()
     {
         return $this->apiSuccess(OfficerResource::collection($this->userService->getOfficerDataSetImages()), "Ok");
     }
