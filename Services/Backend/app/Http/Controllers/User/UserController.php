@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     use apiResponse;
+
     protected $userService;
+
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -21,17 +23,15 @@ class UserController extends Controller
     public function searchByNipAndBirthDate(SearchNipAndBirthDateRequest $request)
     {
         $result = $this->userService->searchByNipAndBirthDate($request->validated());
-        switch ($result) {
-            case 1:
-                return $this->apiSuccess(null, "Inactive", 403);
-                break;
-            case 2:
-                return $this->apiSuccess(null, "Not Found", 404);
-                break;
-            default:
-                return $this->apiSuccess(new OfficerResource($result), "Ok");
-                break;
+
+        if ($result === 1) {
+            return $this->apiSuccess(null, "Inactive", 403);
+        } else if ($result === 2) {
+            return $this->apiSuccess(null, "Not Found", 404);
+        } else {
+            return $this->apiSuccess(new OfficerResource($result), "Ok");
         }
+
     }
 
     public function scanQrCode(Request $request)

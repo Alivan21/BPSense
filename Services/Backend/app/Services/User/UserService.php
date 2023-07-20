@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Commons\Enums\UserStatusEnum;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,19 +18,21 @@ class UserService
     public function searchByNipAndBirthDate(array $data)
     {
         $result = $this->userRepository->getByNipAndBirthDate($data);
+
         if ($result) {
             if ($result->status) {
                 return $result;
             }
-            return 1;
+            return UserStatusEnum::ACTIVE->value;
         }
 
-        return 2;
+        return UserStatusEnum::INACTIVE->value;
     }
 
-    public function scanQrCode(?string $key) {
+    public function scanQrCode(?string $key)
+    {
         if (!$key || $key == "") {
-            return 2;
+            return UserStatusEnum::INACTIVE->value;
         }
 
         foreach ($this->userRepository->getAllDataOfficer() as $data) {
@@ -37,15 +40,16 @@ class UserService
                 if ($data->status) {
                     return $data;
                 }
-                return 1;
+                return UserStatusEnum::ACTIVE->value;
             }
         }
 
-        return 2;
+        return UserStatusEnum::INACTIVE->value;
     }
 
-    public function getOfficerDataSetImages() {
+    public function getOfficerDataSetImages()
+    {
         return $this->userRepository->getAllDataOfficer();
     }
-    
+
 }
