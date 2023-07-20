@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\OfficerController  as AdminOfficerController;
+use App\Http\Controllers\Admin\OfficerController as AdminOfficerController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Officer\OfficerController;
 use App\Http\Controllers\User\UserController;
@@ -30,10 +30,10 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware(['auth:api'])->group(function () {
-        Route::prefix('dashboard')->middleware(['is-admin'])->group(function() {
+        Route::prefix('dashboard')->middleware(['is-admin'])->group(function () {
             Route::get('/', DashboardController::class);
-            
-            Route::prefix('officer')->group(function() {
+
+            Route::prefix('officer')->group(function () {
                 Route::get('/', [AdminOfficerController::class, 'index'])->name('admin.officer.index');
                 Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
                 // Route::post('/test/{id}', [AdminOfficerController::class, 'test'])->name('admin.officer.test');
@@ -45,8 +45,8 @@ Route::prefix('v1')->group(function () {
                 Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
             });
         });
-        
-        Route::prefix('officer')->middleware('is-officer')->group(function() {
+    
+        Route::prefix('officer')->middleware('is-officer')->group(function () {
             Route::get('/', [OfficerController::class, 'index'])->name('officer.show');
             Route::post('/update', [OfficerController::class, 'update'])->name('officer.update');
             Route::put('/password/update', [OfficerController::class, 'updatePassword'])->name('officer.password.update');
@@ -55,12 +55,12 @@ Route::prefix('v1')->group(function () {
         });
     });
 
-    Route::prefix('/user')->group(function() {
-        Route::post('/search', [UserController::class, 'searchByNipAndBirthDate'])->name('user.find.input');
+    Route::prefix('/user')->group(function () {
+        Route::get('/search', [UserController::class, 'searchByNipAndBirthDate'])->name('user.find.input');
         Route::post('/scan-qr-code', [UserController::class, 'scanQrCode'])->name('user.find.qrcode');
         Route::post('/get-images', [UserController::class, 'getImages'])->name('user.image.index');
     });
-    
+
     // Route::get('/test', function() {
     //     // dd($request->file('qrcode'));
     //     // $data = User::findOrFail($id);
@@ -71,7 +71,7 @@ Route::prefix('v1')->group(function () {
     //     $image = $qrcode->size(300)->generate($text);
 
     //     $path = "qrcode/test.png";
-    
+
     //     Storage::put($path , $image, 'public');
     //     $qrcode_url = Storage::url($path);
 
@@ -108,8 +108,8 @@ Route::prefix('v1')->group(function () {
     //     $path = Storage::putFile('/qrcode', $uploadedFile, 'public');
     //     // // Langkah 4: Hapus file sementara
     //     unlink($tempFilePath);
-        
-    
+
+
     //     // Storage::put($path , $image, 'public');
     //     $qrcode_url = Storage::url($path);
 
