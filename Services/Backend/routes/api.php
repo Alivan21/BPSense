@@ -38,16 +38,18 @@ Route::prefix('v1')->group(function () {
                 Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
                 // Route::post('/test/{id}', [AdminOfficerController::class, 'test'])->name('admin.officer.test');
                 Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
+                Route::put('/reset/password/{officer}', [AdminOfficerController::class, 'resetPassword'])->name('admin.officer.reset.password');
+                Route::put('/update/status/{officer}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
                 Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
                 Route::put('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
                 Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
             });
         });
-    
+        
         Route::prefix('officer')->middleware('is-officer')->group(function() {
             Route::get('/', [OfficerController::class, 'index'])->name('officer.show');
             Route::post('/update', [OfficerController::class, 'update'])->name('officer.update');
-            Route::post('/password/update', [OfficerController::class, 'updatePassword'])->name('officer.password.update');
+            Route::put('/password/update', [OfficerController::class, 'updatePassword'])->name('officer.password.update');
             Route::post('/image/update', [OfficerController::class, 'updateImage'])->name('officer.image.update');
         });
     });
@@ -114,6 +116,14 @@ Route::prefix('v1')->group(function () {
     //         'qrcode' => $text,
     //         'qrcode_url' => $qrcode_url
     //     ]);
+    // });
+
+    // Route::get('/token', function () {
+    //     $token = csrf_token();
+    //     return response()->json([
+    //         "token-csrf" => $token
+    //     ]);
+        
     // });
 
 });

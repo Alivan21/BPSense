@@ -42,12 +42,12 @@ class UserRepository implements UserRepositoryInterface
             ->firstOrFail();
     }
 
-    public function findOrFailByNipAndBirthDate(array $data)
+    public function getByNipAndBirthDate(array $data)
     {
         return $this->query
             ->where('nip', $data['nip'])
             ->where('birth_date', $data['birth_date'])
-            ->firstOrFail();
+            ->first();
     }
 
     public function getAllDataOfficer() {

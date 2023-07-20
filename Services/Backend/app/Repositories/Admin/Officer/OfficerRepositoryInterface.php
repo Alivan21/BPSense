@@ -17,4 +17,8 @@ interface OfficerRepositoryInterface
     public function updateQrCode(User $officer, string $path);
 
     public function deleteData(User $officer);
+
+    public function resetPassword(User $officer, string $password);
+
+    public function updateStatus(User $officer, bool $status);
 }

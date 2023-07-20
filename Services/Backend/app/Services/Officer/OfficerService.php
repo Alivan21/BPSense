@@ -3,24 +3,17 @@
 namespace App\Services\Officer;
 
 use App\Models\User;
-use App\Repositories\Officer\OfficerRepository;
 use App\Repositories\OfficerImage\OfficerImageRepository;
-use App\Repositories\Role\RoleRepository;
-use App\Repositories\Storage\StorageRepository;
-
 use App\Repositories\Officer\OfficerRepositoryInterface;
+use App\Repositories\Role\RoleRepositoryInterface;
+use App\Repositories\Storage\StorageRepositoryInterface;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Storage;
-
-// use App\Repositories\OfficerImage\OfficerImageRepositoryInterface;
-// use App\Repositories\Role\RoleRepositoryInterface;
-// use App\Repositories\Storage\StorageRepositoryInterface;
 
 class OfficerService
 {
     protected $officerRepository, $roleRepository, $officerImageRepository, $storageRepository;
 
-    public function __construct(OfficerRepositoryInterface $officerRepository, RoleRepository $roleRepository, OfficerImageRepository $officerImageRepository, StorageRepository $storageRepository)
+    public function __construct(OfficerRepositoryInterface $officerRepository, RoleRepositoryInterface $roleRepository, OfficerImageRepository $officerImageRepository, StorageRepositoryInterface $storageRepository)
     {
         $this->officerRepository = $officerRepository;
         $this->roleRepository = $roleRepository;

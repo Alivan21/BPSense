@@ -3,15 +3,10 @@
 namespace App\Services\Admin;
 
 use App\Models\User;
-use App\Repositories\Admin\Officer\OfficerRepository;
-use App\Repositories\OfficerImage\OfficerImageRepository;
-use App\Repositories\Role\RoleRepository;
-use App\Repositories\Storage\StorageRepository;
-
 use App\Repositories\Admin\Officer\OfficerRepositoryInterface;
-// use App\Repositories\OfficerImage\OfficerImageRepositoryInterface;
-// use App\Repositories\Role\RoleRepositoryInterface;
-// use App\Repositories\Storage\StorageRepositoryInterface;
+use App\Repositories\OfficerImage\OfficerImageRepositoryInterface;
+use App\Repositories\Role\RoleRepositoryInterface;
+use App\Repositories\Storage\StorageRepositoryInterface;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +14,7 @@ class OfficerService
 {
     protected $officerRepository, $roleRepository, $officerImageRepository, $storageRepository;
 
-    public function __construct(OfficerRepositoryInterface $officerRepository, RoleRepository $roleRepository, OfficerImageRepository $officerImageRepository, StorageRepository $storageRepository)
+    public function __construct(OfficerRepositoryInterface $officerRepository, RoleRepositoryInterface $roleRepository, OfficerImageRepositoryInterface $officerImageRepository, StorageRepositoryInterface $storageRepository)
     {
         $this->officerRepository = $officerRepository;
         $this->officerImageRepository = $officerImageRepository;
@@ -64,12 +59,28 @@ class OfficerService
 
     public function delete(User $officer)
     {   
-        return $this->officerRepository->deleteData($officer);;
+        return $this->officerRepository->deleteData($officer);
     }
 
     public function search(string $keyword)
     {
         return $this->officerRepository->searchDataWithNameOrNip($keyword);
+    }
+
+    public function resetPassword(User $officer) {
+        return $this->officerRepository->resetPassword($officer, 'password') ? $officer->refresh() : false;
+    }
+
+    public function updateStatus(User $officer) {
+        // dd($officer->status === 1 ? 0 : 1);
+        // return $this->officerRepository->updateStatus($officer, $officer->status === 1 ? 0 : 1) ? $officer->refresh() : false;
+    
+        if ($officer->status) {
+
+            return $this->officerRepository->updateStatus($officer, false);
+        }
+        // dd("tst");
+        return $this->officerRepository->updateStatus($officer, true);
     }
 
     protected function addDatasetImages(User $officer, array $dataImages){
@@ -85,7 +96,7 @@ class OfficerService
         $image = QrCode::size(300)->generate(Hash::make($officer->id) . "||" . Hash::make($officer->nip));
         $path = hash('sha256', $officer->id) . '/qrcode/qrcode.png'; 
         $this->storageRepository->put($path, $image, 'public');
-
+        
         // Pake watermark (Masih Error, Ga bisa diScan)
         // // Generate Qr Code Image
         // $image = QrCode::format('png')->merge('/public/assets/logo/logo.png', 0.35)->size(300)->generate($officer->id);

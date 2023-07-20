@@ -29,22 +29,16 @@ class AuthController extends Controller
 
     public function login(AuthLoginRequest $request)
     {
-        $result = $this->authService->login($request->validated());
-
-        return $this->apiSuccess('Ok',$result, 200);
+        return $this->apiSuccess('Ok', $this->authService->login($request->validated()), 200);
     }
 
 
     public function register(AuthRegisterRequest $request)
     {
-        $result = $this->authService->register($request->all());
-
-        return $this->apiSuccess('Ok',$result, 200);
+        return $this->apiSuccess('Ok', $this->authService->register($request->all()), 200);
     }
 
     public function logout(){
-        $result = $this->authService->logout();
-
-        return $this->apiSuccess('Ok', $result, 200);
+        return $this->apiSuccess('Ok', $this->authService->logout(), 200);
     }
 }

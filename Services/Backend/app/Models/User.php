@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Str;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -32,8 +31,10 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'nip',
+        'name',
+        'birth_date',
+        'status',
         'username',
         'email',
         'phone',
@@ -89,11 +90,17 @@ class User extends Authenticatable implements JWTSubject
     //  * @return void
     //  */
     // protected static function boot() {
-    //     static::creating(function ($model) {
-    //         if ( ! $model->getKey()) {
-    //             $model->{$model->getKeyName()} = (string) Str::uuid();
-    //         }
-    //     });
+        // static::creating(function ($model) {
+        //     if ( ! $model->getKey()) {
+        //         $model->{$model->getKeyName()} = (string) Str::uuid();
+        //     }
+        // });        
+        // parent::boot();
+
+        // static::creating(function ($user) {
+        //     // Set a default password for new users
+        //     $user->password = Hash::make('password');
+        // });
     // }
 
     /**

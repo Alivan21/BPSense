@@ -3,6 +3,7 @@ namespace App\Repositories\Admin\Officer;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Hash;
 
 class OfficerRepository implements OfficerRepositoryInterface
 {
@@ -43,5 +44,13 @@ class OfficerRepository implements OfficerRepositoryInterface
     public function deleteData(User $officer)
     {
         return $officer->delete();
+    }
+
+    public function resetPassword(User $officer, string $password){
+        return $officer->update(['password' => Hash::make($password)]) ? $officer : false;
+    }
+
+    public function updateStatus(User $officer, bool $status){
+        return $officer->update(['status' => $status]) ? $officer : false;
     }
 }

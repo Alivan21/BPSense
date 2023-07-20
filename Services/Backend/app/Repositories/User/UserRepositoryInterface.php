@@ -6,7 +6,7 @@ interface UserRepositoryInterface
 {
     public function findOrFailByNip(string $nip);
 
-    public function findOrFailByNipAndBirthDate(array $data);
+    public function getByNipAndBirthDate(array $data);
 
     public function getAllDataOfficer();
 }

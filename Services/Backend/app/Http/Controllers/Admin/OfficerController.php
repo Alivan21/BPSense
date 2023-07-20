@@ -19,7 +19,7 @@ class OfficerController extends Controller
 
     public function __construct(OfficerService $officerService)
     {
-        $this->middleware(CheckAdmin::class)->only(['update', 'show', 'destroy']);
+        $this->middleware(CheckAdmin::class)->only(['update', 'show', 'destroy', 'resetPassword', 'updateStatus']);
         $this->officerService = $officerService;
     }
 
@@ -52,7 +52,7 @@ class OfficerController extends Controller
      */
     public function show(User $officer)
     {
-        return $this->apiSuccess(new OfficerResource($officer->loadMissing(['images'])), "Ok");
+        return $this->apiSuccess(new OfficerResource($officer->loadMissing(['images', 'role'])), "Ok");
     }
 
     /**
@@ -64,7 +64,7 @@ class OfficerController extends Controller
      */
     public function update(OfficerUpdateRequest $request, User $officer)
     {
-        return $this->officerService->update($officer->loadMissing(['images']), $request->validated(), $request->file('image') ? $request->validate(['image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']) : []) ? $this->apiSuccess(new OfficerResource($this->officerService->update($officer->loadMissing(['images']), $request->validated(), $request->file('image') ? $request->validate(['image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']) : [])), "Updated") : $this->apiError("Gagal Update Data");
+        return $this->officerService->update($officer->loadMissing(['images', 'role']), $request->validated(), $request->file('image') ? $request->validate(['image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']) : []) ? $this->apiSuccess(new OfficerResource($this->officerService->update($officer->loadMissing(['images', 'role']), $request->validated(), $request->file('image') ? $request->validate(['image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']) : [])), "Updated") : $this->apiError("Gagal Update Data");
     }
 
     /**
@@ -81,5 +81,15 @@ class OfficerController extends Controller
     public function search(OfficerSearchRequest $request)
     {
         return $this->apiSuccess(OfficerResource::collection($this->officerService->search($request->validated()['keyword'] ?? '')), "Ok");
+    }
+
+    public function resetPassword(User $officer)
+    {
+        return $this->officerService->resetPassword($officer->loadMissing(['images', 'role'])) ? $this->apiSuccess(new OfficerResource($this->officerService->resetPassword($officer->loadMissing(['images', 'role']))), "Updated") : $this->apiError("Gagal Reset Password");
+    }
+
+    public function updateStatus(User $officer)
+    {
+        return $this->officerService->updateStatus($officer->loadMissing(['images', 'role'])) ? $this->apiSuccess(new OfficerResource($this->officerService->updateStatus($officer->loadMissing(['images', 'role']))), "Updated") : $this->apiError("Gagal Update Status");
     }
 }

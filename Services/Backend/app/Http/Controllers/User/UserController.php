@@ -4,8 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Commons\Traits\apiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\SearchNipAndBirthDateRequest;
 use App\Http\Resources\User\OfficerResource;
-use App\Models\User;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
 
@@ -18,21 +18,40 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function searchByNipAndBirthDate(Request $request)
+    public function searchByNipAndBirthDate(SearchNipAndBirthDateRequest $request)
     {
-        return $this->apiSuccess(new OfficerResource($this->userService->findOrFailByNipAndBirthDate($request->validate(['nip' => 'required', 'birth_date' => 'required']))), "Ok");
+        $result = $this->userService->searchByNipAndBirthDate($request->validated());
+        switch ($result) {
+            case 1:
+                return $this->apiSuccess(null, "Inactive", 403);
+                break;
+            case 2:
+                return $this->apiSuccess(null, "Not Found", 404);
+                break;
+            default:
+                return $this->apiSuccess(new OfficerResource($result), "Ok");
+                break;
+        }
     }
 
     public function scanQrCode(Request $request)
     {
-        return $this->userService->scanQrCode($request->key) ? $this->apiSuccess(new OfficerResource($this->userService->scanQrCode($request->key)), "Ok") : $this->apiSuccess(null, "No Data", 404);
+        $result = $this->userService->scanQrCode($request->key);
+        switch ($result) {
+            case 1:
+                return $this->apiSuccess(null, "Inactive", 403);
+                break;
+            case 2:
+                return $this->apiSuccess(null, "Not Found", 404);
+                break;
+            default:
+                return $this->apiSuccess(new OfficerResource($result), "Ok");
+                break;
+        }
     }
 
-    public function getImages() {
-        $user = User::with(['images', 'role'])->whereHas('role', function ($role) {
-            $role->where('name', 'officer');
-        })->orderBy('created_at')->get();
-
-        return $this->apiSuccess(OfficerResource::collection($user), "Ok");
+    public function getImages() 
+    {
+        return $this->apiSuccess(OfficerResource::collection($this->userService->getOfficerDataSetImages()), "Ok");
     }
 }
