@@ -112,10 +112,8 @@ class OfficerService
         return $this->officerRepository->resetPassword($officer, 'password') ? $officer->refresh() : false;
     }
 
-    public function updateStatus(int $id)
+    public function updateStatus(User $officer)
     {
-
-        return $this->userRepository->updateStatus($id);
-
+        return $this->officerRepository->updateStatus($officer) ? $officer->refresh() : false;
     }
 }

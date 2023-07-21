@@ -54,6 +54,13 @@ class OfficerRepository implements OfficerRepositoryInterface
 
     public function resetPassword(User $officer, string $password)
     {
-        return $officer->update(['password' => Hash::make($password)]) ? $officer : false;
+        $officer->password = Hash::make($password);
+        return $officer->save() ? $officer : false;
+    }
+
+    public function updateStatus(User $officer)
+    {
+        $officer->status = !$officer->status;
+        return $officer->save() ? $officer : false;
     }
 }

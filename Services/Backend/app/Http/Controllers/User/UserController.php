@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Commons\Enums\UserStatusEnum;
 use App\Commons\Traits\apiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\SearchNipAndBirthDateRequest;
@@ -22,36 +23,26 @@ class UserController extends Controller
 
     public function searchByNipAndBirthDate(SearchNipAndBirthDateRequest $request)
     {
-        $result = $this->userService->searchByNipAndBirthDate($request->validated());
-
-        if ($result === 1) {
-            return $this->apiSuccess(null, "Inactive", 403);
-        } else if ($result === 2) {
-            return $this->apiSuccess(null, "Not Found", 404);
-        } else {
-            return $this->apiSuccess(new OfficerResource($result), "Ok");
-        }
-
+        return $this->responseCheckOfficer($this->userService->searchByNipAndBirthDate($request->validated()));
     }
 
     public function scanQrCode(Request $request)
     {
-        $result = $this->userService->scanQrCode($request->key);
-        switch ($result) {
-            case 1:
-                return $this->apiSuccess(null, "Inactive", 403);
-                break;
-            case 2:
-                return $this->apiSuccess(null, "Not Found", 404);
-                break;
-            default:
-                return $this->apiSuccess(new OfficerResource($result), "Ok");
-                break;
-        }
+        return $this->responseCheckOfficer($this->userService->scanQrCode($request->key));
     }
 
     public function getImages()
     {
         return $this->apiSuccess(OfficerResource::collection($this->userService->getOfficerDataSetImages()), "Ok");
+    }
+
+    private function responseCheckOfficer($result) {
+        if ($result === UserStatusEnum::INACTIVE->value) {
+            return $this->apiSuccess(null, "Inactive", 403);
+        } else if ($result === UserStatusEnum::NOTFOUND->value) {
+            return $this->apiSuccess(null, "Not Found", 404);
+        } else {
+            return $this->apiSuccess(new OfficerResource($result), "Ok");
+        }
     }
 }

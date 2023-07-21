@@ -20,7 +20,7 @@ class OfficerController extends Controller
 
     public function __construct(OfficerService $officerService)
     {
-        $this->middleware(CheckAdmin::class)->only(['update', 'show', 'destroy', 'resetPassword']);
+        $this->middleware(CheckAdmin::class)->only(['update', 'show', 'destroy', 'resetPassword', 'updateStatus']);
         $this->officerService = $officerService;
     }
 
@@ -89,8 +89,8 @@ class OfficerController extends Controller
         return $this->officerService->resetPassword($officer->loadMissing(['images', 'role'])) ? $this->apiSuccess(new OfficerResource($this->officerService->resetPassword($officer->loadMissing(['images', 'role']))), "Updated") : $this->apiError("Gagal Reset Password");
     }
 
-    public function updateStatus(int $id)
+    public function updateStatus(User $officer)
     {
-        return $this->officerService->updateStatus($id);
+        return $this->officerService->updateStatus($officer);
     }
 }

@@ -19,5 +19,6 @@ interface OfficerRepositoryInterface
     public function deleteData(User $officer);
 
     public function resetPassword(User $officer, string $password);
-    
+
+    public function updateStatus(User $officer);
 }

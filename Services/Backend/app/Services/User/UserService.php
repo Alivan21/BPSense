@@ -23,16 +23,16 @@ class UserService
             if ($result->status) {
                 return $result;
             }
-            return UserStatusEnum::ACTIVE->value;
+            return UserStatusEnum::INACTIVE->value;
         }
 
-        return UserStatusEnum::INACTIVE->value;
+        return UserStatusEnum::NOTFOUND->value;
     }
 
     public function scanQrCode(?string $key)
     {
         if (!$key || $key == "") {
-            return UserStatusEnum::INACTIVE->value;
+            return UserStatusEnum::NOTFOUND->value;
         }
 
         foreach ($this->userRepository->getAllDataOfficer() as $data) {
@@ -40,16 +40,15 @@ class UserService
                 if ($data->status) {
                     return $data;
                 }
-                return UserStatusEnum::ACTIVE->value;
+                return UserStatusEnum::INACTIVE->value;
             }
         }
 
-        return UserStatusEnum::INACTIVE->value;
+        return UserStatusEnum::NOTFOUND->value;
     }
 
     public function getOfficerDataSetImages()
     {
         return $this->userRepository->getAllDataOfficer();
     }
-
 }

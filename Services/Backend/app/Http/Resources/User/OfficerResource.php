@@ -18,6 +18,7 @@ class OfficerResource extends JsonResource
         return [
             'name' => $this->name,
             'nip' => $this->nip,
+            'birth_date' => $this->birth_date,
             'profile' => $this->profile ?? null,
             'images' => $this->images->map(function ($image) {
                 return [
