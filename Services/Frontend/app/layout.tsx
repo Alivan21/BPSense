@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <section className="flex flex-col gap-8 mb-auto">
             <QueryProvider>{children}</QueryProvider>
           </section>
-          <footer className="text-center mt-7 -mb-4">©2023 All rights reserved by Mother's Prayer</footer>
+          <footer className="text-center mt-7 -mb-2">©2023 All rights reserved by Mother's Prayer</footer>
         </main>
       </body>
     </html>

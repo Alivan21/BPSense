@@ -28,13 +28,11 @@ export default function Card(props: CardProps) {
       <div className="border border-blue-600 rounded-lg">
         <Image
           src={URL_MAP[props.type]}
-          alt={"test"}
+          alt="card"
           height={0}
           width={0}
           className="min-w-[7rem] max-w-xs h-20"
           priority
-          blurDataURL={URL_MAP[props.type]}
-          placeholder="blur"
         />
       </div>
       <span className="text-lg font-semibold text-gray-800">{TITLE_MAP[props.type]}</span>
