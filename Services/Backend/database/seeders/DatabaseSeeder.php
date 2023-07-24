@@ -39,8 +39,8 @@ class DatabaseSeeder extends Seeder
 
         User::insert(
             [
-                'name' => 'Petugas 1',
-                'nip' => '12345678',
+                'name' => 'Petugas Budi',
+                'nip' => '123456789012345678',
                 'password' => Hash::make('password'),
                 'birth_date' => '1999-01-01',
                 'role_id' => 2
