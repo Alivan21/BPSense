@@ -27,8 +27,9 @@ Route::prefix('v1')->group(function () {
         Route::post('login', [AuthController::class, 'login'])->middleware('guest')->name('login');
         // Route::post('register', [AuthController::class, 'register'])->name('register');
         Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout');
+        Route::post('get-profile', [AuthController::class, 'getProfile'])->middleware('auth:api')->name('get-profile');
     });
-
+    
     Route::middleware(['auth:api'])->group(function () {
         Route::prefix('dashboard')->middleware(['is-admin'])->group(function () {
             Route::get('/', DashboardController::class);
@@ -59,71 +60,4 @@ Route::prefix('v1')->group(function () {
         Route::post('/scan-qr-code', [UserController::class, 'scanQrCode'])->name('user.find.qrcode');
         Route::post('/get-images', [UserController::class, 'getImages'])->name('user.image.index');
     });
-
-    // Route::get('/test', function() {
-    //     // dd($request->file('qrcode'));
-    //     // $data = User::findOrFail($id);
-    //     // $qrcode = Hash::make($data->id);
-    //     $text = bcrypt("Test");
-    //     $qrcode = new Generator();
-    //     // $image = $qrcode->format('png')->merge('/public/assets/logo/logo.png', 0.35)->generate("Abcde");
-    //     $image = $qrcode->size(300)->generate($text);
-
-    //     $path = "qrcode/test.png";
-
-    //     Storage::put($path , $image, 'public');
-    //     $qrcode_url = Storage::url($path);
-
-    //     return response()->json([
-    //         'qrcode' => $text,
-    //         'qrcode_url' => $qrcode_url
-    //     ]);
-    // });
-
-    // Route::get('/test', function() {
-    //     $text = bcrypt("Test");
-    //     $text = "Test";
-    //     $qrcode = new Generator();
-    //     $image = $qrcode->format('png')->merge('/public/assets/logo/logog.png')->size(300)->generate($text);
-    //     // Mendapatkan informasi path file
-    //     // $pathInfo = pathinfo($image);
-    //     // dd($pathInfo);
-    //     // $extension = $pathInfo['extension'];
-    //     // $newFilename = "newfile." . $extension;
-    //     // dd($newFilename);
-    //     // $path = "qrcode/test.png";
-
-    //     // Pake watermark (Masih Error, Ga bisa diScan)
-    //     // // Generate Qr Code Image
-    //     // $image = QrCode::format('png')->merge('/public/assets/logo/logo.png', 0.35)->size(300)->generate($officer->id);
-    //     // // Langkah 1: Menulis string gambar ke file sementara
-    //     $tempFilePath = sys_get_temp_dir() . '/' . uniqid() . '.png';
-
-    //     // // Langkah 2: Convert ke UploadedFile
-    //     file_put_contents($tempFilePath, $image);
-    //     // $uploadedFile = new UploadedFile($tempFilePath, 'qrcode.png', 'image/png', null, true);
-    //     $uploadedFile = new UploadedFile($tempFilePath, 'qrcode.png', 'image/png', null, true);
-    //     // // Langkah 3: Upload ke Storage
-    //     $path = Storage::putFile('/qrcode', $uploadedFile, 'public');
-    //     // // Langkah 4: Hapus file sementara
-    //     unlink($tempFilePath);
-
-
-    //     // Storage::put($path , $image, 'public');
-    //     $qrcode_url = Storage::url($path);
-
-    //     return response()->json([
-    //         'qrcode' => $text,
-    //         'qrcode_url' => $qrcode_url
-    //     ]);
-    // });
-
-    // Route::get('/token', function () {
-    //     $token = csrf_token();
-    //     return response()->json([
-    //         "token-csrf" => $token
-    //     ]);
-
-    // });
-
 });

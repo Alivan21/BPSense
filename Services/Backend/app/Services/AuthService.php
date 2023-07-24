@@ -30,14 +30,12 @@ class AuthService {
             return [
                 "token" => $token,
                 "expires_at" => $expiresAt,
-                "name" => auth()->user()->name,
                 "nip" => auth()->user()->nip,
-                "status" => auth()->user()->status,
                 "role" => auth()->user()->role->name
             ];
         }
 
-        throw new UnauthorizedException("Email atau password salah", 401);
+        throw new UnauthorizedException("Credential salah", 401);
     }
 
     public function register(array $data)

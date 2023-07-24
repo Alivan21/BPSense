@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Commons\Traits\apiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthLoginRequest;
-use App\Http\Requests\Auth\AuthRegisterRequest;
 use App\Services\AuthService;
+use AWS\CRT\HTTP\Request;
 
 class AuthController extends Controller
 {
@@ -40,5 +40,9 @@ class AuthController extends Controller
 
     public function logout(){
         return $this->apiSuccess($this->authService->logout(), 'Ok', 200);
+    }
+
+    public function getProfile(){
+        return $this->apiSuccess(auth()->user(), 'Ok', 200);
     }
 }
