@@ -30,6 +30,7 @@ class AuthService {
             return [
                 "token" => $token,
                 "expires_at" => $expiresAt,
+                "role" => auth()->user()->role->name
             ];
         }
 
