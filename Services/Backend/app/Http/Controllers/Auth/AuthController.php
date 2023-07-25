@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Commons\Traits\apiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthLoginRequest;
+use App\Http\Resources\OfficerResource;
 use App\Services\AuthService;
 use AWS\CRT\HTTP\Request;
 
@@ -43,6 +44,6 @@ class AuthController extends Controller
     }
 
     public function getProfile(){
-        return $this->apiSuccess(auth()->user(), 'Ok', 200);
+        return $this->apiSuccess(new OfficerResource(auth()->user()), 'Ok', 200);
     }
 }

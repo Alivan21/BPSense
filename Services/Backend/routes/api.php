@@ -61,3 +61,14 @@ Route::prefix('v1')->group(function () {
         Route::post('/get-images', [UserController::class, 'getImages'])->name('user.image.index');
     });
 });
+
+// Route::prefix('petugas')->group(function () {
+//     Route::get('/', [AdminOfficerController::class, 'index'])->name('admin.officer.index');
+//     Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
+//     Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
+//     Route::put('/reset/password/{officer}', [AdminOfficerController::class, 'resetPassword'])->name('admin.officer.reset.password');
+//     Route::put('/update/status/{officer}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
+//     Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
+//     Route::put('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
+//     Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
+// });
