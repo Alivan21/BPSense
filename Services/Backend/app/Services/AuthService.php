@@ -4,6 +4,8 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\UnauthorizedException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
 
 class AuthService {
     private $user;
@@ -24,13 +26,16 @@ class AuthService {
 
         unset($data['identifier']);
 
-        if($token = auth()->attempt($data)){
+        if(auth()->attempt($data)){
             $expiresAt = $this->time->addDays(1);
 
+            $payload = JWTFactory::sub(auth()->user()->id)
+                ->role(auth()->user()->role->name)
+                ->make();
+
             return [
-                "token" => $token,
+                "token" => JWTAuth::encode($payload)->get(),
                 "expires_at" => $expiresAt,
-                "role" => auth()->user()->role->name
             ];
         }
 
