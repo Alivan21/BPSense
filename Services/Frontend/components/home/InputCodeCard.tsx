@@ -54,7 +54,7 @@ export default function InputCodeCard() {
 
   return (
     <>
-      {isDialogOpen ? null : (
+      {isDialogOpen && confirmDialog.data ? null : (
         <Dialog>
           <DialogTrigger className="text-start">
             <Card type="input" />
