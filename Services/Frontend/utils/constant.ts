@@ -12,4 +12,10 @@ export type BaseResponse<T> = {
   message?: string;
 };
 
+export type AuthJwtPayload = {
+  sub: string;
+  exp: string;
+  role: string;
+};
+
 export const API_URL = process.env.NEXT_PUBLIC_API_BACKEND || "http://localhost:8000/api/v1";

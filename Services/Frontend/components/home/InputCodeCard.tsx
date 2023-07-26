@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { ISearchCode, useSearchCode } from "@/hooks/use-search-code";
+import { ISearchCode, useSearchCode } from "@/hooks/search";
 import Card from "./card";
 import Spinner from "../ui/spinner";
 import ConfirmDialog, { TConfirmDialog } from "../confirm-dialog";
@@ -23,7 +23,7 @@ export default function InputCodeCard() {
 
   const [confirmDialog, setConfirmDialog] = useState<TConfirmDialog>({
     open: isDialogOpen,
-    data: { nip: "", name: "" },
+    data: { nip: "", name: "", birth_date: "" },
     isValid: false,
     onClose: handleCloseDialog,
   });

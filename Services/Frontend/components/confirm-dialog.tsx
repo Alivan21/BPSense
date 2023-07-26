@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { formatDateToIndonesian } from "@/utils/format-date";
 
 type TDataDialog = {
   nip: string;
   name: string;
-  date_birth?: string;
+  birth_date?: string;
 };
 
 export type TConfirmDialog = {
@@ -16,12 +18,16 @@ export type TConfirmDialog = {
 };
 
 function ConfirmDialog(props: TConfirmDialog) {
+  const router = useRouter();
   const backToMenu = () => {
     if (window.location.pathname == "/") {
       window.location.reload();
     }
-    window.location.href = "/";
+    router.push("/");
   };
+  if (props.data?.birth_date) {
+    props.data.birth_date = formatDateToIndonesian(props.data.birth_date);
+  }
   return (
     <Dialog open={props.open} onOpenChange={props.onClose}>
       <DialogContent className="w-[92%] flex flex-col justify-center items-center gap-5">
@@ -44,7 +50,7 @@ function ConfirmDialog(props: TConfirmDialog) {
             <div className="flex flex-col gap-2">
               <span>NIP : {props.data.nip}</span>
               <span>Nama : {props.data.name}</span>
-              <span>Tanggal Lahir : </span>
+              <span>Tanggal Lahir : {props.data.birth_date}</span>
             </div>
           )}
         </div>
