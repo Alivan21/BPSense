@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import { formatDateToIndonesian } from "@/utils/format-date";
 
 type TDataDialog = {
@@ -18,12 +17,8 @@ export type TConfirmDialog = {
 };
 
 function ConfirmDialog(props: TConfirmDialog) {
-  const router = useRouter();
   const backToMenu = () => {
-    if (window.location.pathname == "/") {
-      window.location.reload();
-    }
-    router.push("/");
+    props.onClose();
   };
   if (props.data?.birth_date) {
     props.data.birth_date = formatDateToIndonesian(props.data.birth_date);

@@ -9,7 +9,7 @@ type ShowQRProps = {
 function ShowQR(props: ShowQRProps) {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger className="text-start">
         <Card type="petugasQR" />
       </DialogTrigger>
       <DialogContent className="w-[92%]">

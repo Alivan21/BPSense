@@ -1,4 +1,5 @@
 "use client";
+import Card from "@/components/home/card";
 import NavbarPetugas from "@/components/petugas/navbar-petugas";
 import ShowQR from "@/components/petugas/show-qr";
 import Spinner from "@/components/ui/spinner";
@@ -17,7 +18,7 @@ function PetugasPage() {
   });
   if (isLoading) {
     return (
-      <div className="min-h-full flex justify-center items-center">
+      <div className="flex justify-center items-center my-auto h-screen">
         <Spinner />
       </div>
     );
@@ -35,6 +36,7 @@ function PetugasPage() {
           </p>
         </div>
         <ShowQR image={data?.qrcode} />
+        <Card type="petugasFace" />
       </section>
     </>
   );

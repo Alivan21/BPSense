@@ -1,12 +1,11 @@
 "use client";
-
 import { withGuardAdmin } from "@/hoc/with-guard-admin";
 
 function AdminPage() {
   return (
-    <div>
+    <section>
       <h1>Hallo ini halaman admin</h1>
-    </div>
+    </section>
   );
 }
 

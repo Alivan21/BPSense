@@ -23,6 +23,7 @@ function LoginDialog() {
     identifier: "",
     password: "",
   });
+  const [submiting, setSubmiting] = useState(false);
 
   const signInMutation = useSignIn(form);
 
@@ -36,13 +37,11 @@ function LoginDialog() {
     setSubmiting(true);
     try {
       await signInMutation.mutateAsync();
-      setSubmiting(false);
     } catch (error) {
       setSubmiting(false);
       return toast.error("Username atau password salah");
     }
   }
-  const [submiting, setSubmiting] = useState(false);
 
   return (
     <Dialog>

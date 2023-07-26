@@ -15,7 +15,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -27,10 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={bodyClass}>
         <AuthProvider>
           <QueryProvider>
-            <main className="flex flex-col bg-white max-w-[580px] mx-auto min-h-screen rounded-sm shadow-md p-8">
-              <section className="flex flex-col gap-8 mb-auto">{children}</section>
-              <footer className="text-center mt-7 -mb-2">©2023 All rights reserved by Mother's Prayer</footer>
-            </main>
+            {children}
             <Toaster position="top-center" />
           </QueryProvider>
         </AuthProvider>

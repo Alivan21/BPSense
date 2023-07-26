@@ -15,7 +15,7 @@ export default function InputCodeCard() {
     birth_date: "",
   });
   const [submiting, setSubmiting] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Manage dialog state here
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
@@ -54,53 +54,55 @@ export default function InputCodeCard() {
 
   return (
     <>
-      <Dialog>
-        <DialogTrigger>
-          <Card type="input" />
-        </DialogTrigger>
-        <DialogContent className="w-[92%]">
-          <DialogHeader>
-            <DialogTitle className="leading-normal w-[92%]">
-              Verifikasi Petugas BPS Menggunakan Kode
-            </DialogTitle>
-          </DialogHeader>
-          <Separator />
-          <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="nip" className="text-gray-900 font-medium">
-                NIP
-              </label>
-              <Input
-                type="text"
-                placeholder="Kode Petugas"
-                name="nip"
-                id="nip"
-                value={form.nip}
-                onChange={handleChange}
-                required
-                minLength={18}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="birth_date" className="text-gray-900 font-medium">
-                Tanggal Lahir
-              </label>
-              <Input
-                type="date"
-                name="birth_date"
-                id="birth_date"
-                className="cursor-pointer"
-                value={form.birth_date}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={submiting}>
-              {submiting ? <Spinner /> : "Cek Petugas"}
-            </Button>
-          </form>
-        </DialogContent>
-      </Dialog>
+      {isDialogOpen ? null : (
+        <Dialog>
+          <DialogTrigger className="text-start">
+            <Card type="input" />
+          </DialogTrigger>
+          <DialogContent className="w-[92%]">
+            <DialogHeader>
+              <DialogTitle className="leading-normal w-[92%]">
+                Verifikasi Petugas BPS Menggunakan Kode
+              </DialogTitle>
+            </DialogHeader>
+            <Separator />
+            <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="nip" className="text-gray-900 font-medium">
+                  NIP
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Kode Petugas"
+                  name="nip"
+                  id="nip"
+                  value={form.nip}
+                  onChange={handleChange}
+                  required
+                  minLength={18}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="birth_date" className="text-gray-900 font-medium">
+                  Tanggal Lahir
+                </label>
+                <Input
+                  type="date"
+                  name="birth_date"
+                  id="birth_date"
+                  className="cursor-pointer"
+                  value={form.birth_date}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={submiting}>
+                {submiting ? <Spinner /> : "Cek Petugas"}
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+      )}
       <ConfirmDialog
         data={confirmDialog.data}
         isValid={confirmDialog.isValid}
