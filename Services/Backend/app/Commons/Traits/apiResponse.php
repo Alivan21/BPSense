@@ -27,10 +27,8 @@
             {
                 return response()->json([
                     'code' => $statusCode,
+                    'data' => $errors,
                     'message' => $message,
-                    'errors' => $errors,
                 ], $statusCode);
             }
-
     }
-

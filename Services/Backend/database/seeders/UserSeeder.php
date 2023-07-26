@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'role_id' => UserRoleEnum::ADMIN->value
         ]]);
 
-        $dataAdmin = [
+        $dataPetugas = [
             'name' => 'Petugas Budi',
             'nip' => '123456789012345678',
             'username' => 'petugas',
@@ -38,13 +38,13 @@ class UserSeeder extends Seeder
             'role_id' => UserRoleEnum::EMPLOYEE->value,
         ];
 
-        $insertDataAdmin = User::create($dataAdmin);
+        $insertDataPetugas = User::create($dataPetugas);
 
-        $image = QrCode::size(300)->generate(Hash::make($insertDataAdmin->id) . "||" . Hash::make($insertDataAdmin->nip));
-        $path = hash('sha256', $insertDataAdmin->id) . '/qrcode/qrcode.png';
+        $image = QrCode::size(300)->generate(Hash::make($insertDataPetugas->id) . "||" . Hash::make($insertDataPetugas->nip));
+        $path = hash('sha256', $insertDataPetugas->id) . '/qrcode/qrcode.png';
         Storage::put($path, $image, 'public');
 
-        $insertDataAdmin->update([
+        $insertDataPetugas->update([
             'qrcode' => $path
         ]);
     }
