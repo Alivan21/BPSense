@@ -7,15 +7,15 @@ import Spinner from "@/components/ui/spinner";
 export function withGuard(Component: ComponentType) {
   return function GuardedRoute() {
     const { push } = useRouter();
-    const { isLoggedIn, isAdmin } = useAuthContext();
+    const { isLoggedIn } = useAuthContext();
 
     useEffect(() => {
-      if (!isLoggedIn || !isAdmin) {
+      if (!isLoggedIn) {
         push("/");
       }
-    }, [isLoggedIn, isAdmin]);
+    }, [isLoggedIn]);
 
-    if (!isLoggedIn || !isAdmin) {
+    if (!isLoggedIn) {
       return (
         <div className="flex justify-center items-center my-auto h-screen">
           <Spinner />

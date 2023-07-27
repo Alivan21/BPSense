@@ -2,10 +2,13 @@
 import { useSignOut } from "@/hooks/auth";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useState } from "react";
 
 function NavbarPetugas() {
   const signOutMutation = useSignOut();
+  const [submiting, setSubmiting] = useState(false);
   async function handleSignOut() {
+    setSubmiting(true);
     await signOutMutation.mutateAsync();
   }
   return (
@@ -27,6 +30,7 @@ function NavbarPetugas() {
           className="text-lg font-semibold bg-red-600 hover:bg-red-700"
           size="sm"
           onClick={handleSignOut}
+          disabled={submiting}
         >
           Keluar
         </Button>
