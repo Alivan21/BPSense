@@ -18,3 +18,14 @@ export function useSearchCode(props: ISearchCode) {
     },
   });
 }
+
+export function useSearchQR(key: string) {
+  const formData = new FormData();
+  formData.set("key", key);
+  return useMutation({
+    mutationFn: async () => {
+      const { data } = await axios.post<BaseResponse<any>>(`${API_URL}/user/scan-qr-code`, formData);
+      return data;
+    },
+  });
+}
