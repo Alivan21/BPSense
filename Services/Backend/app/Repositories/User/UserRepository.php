@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\User;
 
 use App\Models\User;
@@ -42,17 +43,25 @@ class UserRepository implements UserRepositoryInterface
             ->firstOrFail();
     }
 
-    public function findOrFailByNipAndBirthDate(array $data)
+    public function getByNipAndBirthDate(array $data)
     {
         return $this->query
             ->where('nip', $data['nip'])
             ->where('birth_date', $data['birth_date'])
-            ->firstOrFail();
+            ->first();
     }
 
-    public function getAllDataOfficer() {
+    public function getAllDataOfficer()
+    {
         return $this->query->with(['role', 'images'])->whereHas('role', function ($role) {
             $role->where('name', 'officer');
         })->orderBy('created_at')->get();
+    }
+
+    public function updateStatus(int $id)
+    {
+        $user = $this->query->find($id);
+        $user->status = !$user->status;
+        return $user->save() ? $user : false;
     }
 }

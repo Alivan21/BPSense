@@ -9,7 +9,7 @@ interface OfficerRepositoryInterface
     public function getAllData();
 
     public function searchDataWithNameOrNip(string $keyword);
-    
+
     public function createData(array $data);
 
     public function updateData(User $officer, array $data);
@@ -17,4 +17,8 @@ interface OfficerRepositoryInterface
     public function updateQrCode(User $officer, string $path);
 
     public function deleteData(User $officer);
+
+    public function resetPassword(User $officer, string $password);
+
+    public function updateStatus(User $officer);
 }

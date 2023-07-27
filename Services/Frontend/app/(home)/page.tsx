@@ -1,6 +1,6 @@
-import Card from "@/components/home/Card";
-import InputCodeCard from "@/components/home/InputCodeCard";
-import Navbar from "@/components/Navbar";
+import Card from "@/components/home/card";
+import ForwardedInputCodeCard from "@/components/home/InputCodeCard";
+import Navbar from "@/components/navbar";
 import Link from "next/link";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
         <Link href="/qr">
           <Card type="qr" />
         </Link>
-        <InputCodeCard />
+        <ForwardedInputCodeCard />
         <Card type="kontak" />
       </section>
     </>

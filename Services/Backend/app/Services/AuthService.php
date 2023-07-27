@@ -4,6 +4,8 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\UnauthorizedException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
 
 class AuthService {
     private $user;
@@ -24,16 +26,20 @@ class AuthService {
 
         unset($data['identifier']);
 
-        if($token = auth()->attempt($data)){
+        if(auth()->attempt($data)){
             $expiresAt = $this->time->addDays(1);
 
+            $payload = JWTFactory::sub(auth()->user()->id)
+                ->role(auth()->user()->role->name)
+                ->make();
+
             return [
-                "token" => $token,
-                "expires_at" => $expiresAt
+                "token" => JWTAuth::encode($payload)->get(),
+                "expires_at" => $expiresAt,
             ];
         }
 
-        throw new UnauthorizedException("Email atau password salah", 401);
+        throw new UnauthorizedException("Credential salah", 401);
     }
 
     public function register(array $data)

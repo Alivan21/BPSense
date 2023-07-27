@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-type CardType = "face" | "qr" | "input" | "jadwal" | "kontak";
+type CardType = "face" | "qr" | "input" | "jadwal" | "kontak" | "petugasFace" | "petugasQR";
 
 type CardProps = {
   type: CardType;
@@ -13,6 +13,8 @@ export default function Card(props: CardProps) {
     input: "/input-code.svg",
     jadwal: "/jadwal.svg",
     kontak: "/contact-us.svg",
+    petugasFace: "/petugas-face.svg",
+    petugasQR: "/petugas-qr.svg",
   };
 
   const TITLE_MAP: Record<CardType, string> = {
@@ -21,6 +23,8 @@ export default function Card(props: CardProps) {
     input: "Cek Petugas dengan Kode Petugas",
     jadwal: "Lihat Jadwal Petugas",
     kontak: "Hubungi Kami",
+    petugasFace: "Tambahkan Wajah Petugas",
+    petugasQR: "Tampilkan Kode QR Petugas",
   };
 
   return (
@@ -28,13 +32,11 @@ export default function Card(props: CardProps) {
       <div className="border border-blue-600 rounded-lg">
         <Image
           src={URL_MAP[props.type]}
-          alt={"test"}
+          alt="card"
           height={0}
           width={0}
           className="min-w-[7rem] max-w-xs h-20"
           priority
-          blurDataURL={URL_MAP[props.type]}
-          placeholder="blur"
         />
       </div>
       <span className="text-lg font-semibold text-gray-800">{TITLE_MAP[props.type]}</span>

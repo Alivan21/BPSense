@@ -23,18 +23,12 @@
                 ], $statusCode);
             }
 
-            public function apiError($errors): JsonResponse
+            public function apiError($errors, $message = null, $statusCode = 422): JsonResponse
             {
-                $errorMessages = [];
-
-                foreach ($errors->all() as $error) {
-                    $errorMessages[] = $error;
-                }
-
                 return response()->json([
-                    'message' => $errorMessages,
-                ]);
+                    'code' => $statusCode,
+                    'data' => $errors,
+                    'message' => $message,
+                ], $statusCode);
             }
-
     }
-

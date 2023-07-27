@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Commons\Traits\apiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthLoginRequest;
-use App\Http\Requests\Auth\AuthRegisterRequest;
+use App\Http\Resources\OfficerResource;
 use App\Services\AuthService;
+use AWS\CRT\HTTP\Request;
 
 class AuthController extends Controller
 {
@@ -29,22 +30,20 @@ class AuthController extends Controller
 
     public function login(AuthLoginRequest $request)
     {
-        $result = $this->authService->login($request->validated());
-
-        return $this->apiSuccess('Ok',$result, 200);
+        return $this->apiSuccess($this->authService->login($request->validated()), 'Ok', 200);
     }
 
 
-    public function register(AuthRegisterRequest $request)
-    {
-        $result = $this->authService->register($request->all());
-
-        return $this->apiSuccess('Ok',$result, 200);
-    }
+    // public function register(AuthRegisterRequest $request)
+    // {
+    //     return $this->apiSuccess('Ok', $this->authService->register($request->all()), 200);
+    // }
 
     public function logout(){
-        $result = $this->authService->logout();
+        return $this->apiSuccess($this->authService->logout(), 'Ok', 200);
+    }
 
-        return $this->apiSuccess('Ok', $result, 200);
+    public function getProfile(){
+        return $this->apiSuccess(new OfficerResource(auth()->user()), 'Ok', 200);
     }
 }

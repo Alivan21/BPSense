@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('nip')->unique()->nullable();
             $table->string('username')->unique()->nullable();
+            $table->boolean('status')->default(false);
             $table->string('email')->unique()->nullable();
             $table->string('phone', 15)->unique()->nullable();
             $table->date('birth_date')->nullable();

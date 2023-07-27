@@ -2,10 +2,17 @@
 import { useRef, useCallback, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 
+let ml5: any;
+const modelURL = "https://teachablemachine.withgoogle.com/models/Qb16rx5VJ/";
+let classifier: {
+  classify: (arg0: HTMLImageElement, arg1: (error: any, results: string | any[]) => void) => void;
+};
+
 function WebcamCapture() {
   const [picture, setPicture] = useState("");
   const [deviceId, setDeviceId] = useState<any>({});
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
+  const [predictionResult, setPredictionResult] = useState("");
   const webcamRef = useRef(null);
 
   const capture = useCallback(() => {
@@ -21,8 +28,34 @@ function WebcamCapture() {
   );
 
   useEffect(() => {
+    ml5 = require("ml5");
     navigator.mediaDevices.enumerateDevices().then(handleDevices);
-  }, [handleDevices]);
+    (async () => {
+      classifier = await ml5.imageClassifier(modelURL + "model.json");
+      if (picture) {
+        const image = new Image();
+        image.src = picture;
+        image.onload = () => {
+          predictImage(image);
+        };
+      }
+    })();
+  }, [handleDevices, picture]);
+
+  // Function to predict using the image model
+  function predictImage(image: HTMLImageElement) {
+    // Load the Teachable Machine image model
+    classifier.classify(image, gotResult);
+  }
+
+  const gotResult = async (error: any, results: string | any[]) => {
+    let result = "";
+    for (let i = 0; i < results.length; i++) {
+      const classPrediction = results[i].label + ": " + results[i].confidence.toFixed(2);
+      result += classPrediction + "\n";
+    }
+    setPredictionResult(result);
+  };
 
   return (
     <>
@@ -50,6 +83,7 @@ function WebcamCapture() {
             onClick={(e) => {
               e.preventDefault();
               setPicture("");
+              setPredictionResult("");
             }}
           >
             Ulangi Foto
@@ -66,6 +100,7 @@ function WebcamCapture() {
           Ambil Foto
         </button>
       )}
+      <p>{predictionResult}</p>
     </>
   );
 }
