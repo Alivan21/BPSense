@@ -34,16 +34,16 @@ Route::prefix('v1')->group(function () {
         Route::prefix('dashboard')->middleware(['is-admin'])->group(function () {
             Route::get('/', DashboardController::class);
 
-            Route::prefix('officer')->group(function () {
-                Route::get('/', [AdminOfficerController::class, 'index'])->name('admin.officer.index');
-                Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
-                Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
-                Route::put('/reset/password/{officer}', [AdminOfficerController::class, 'resetPassword'])->name('admin.officer.reset.password');
-                Route::put('/update/status/{officer}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
-                Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
-                Route::put('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
-                Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
-            });
+            // Route::prefix('officer')->group(function () {
+            //     Route::get('/', [AdminOfficerController::class, 'index'])->name('admin.officer.index');
+            //     Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
+            //     Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
+            //     Route::put('/reset/password/{officer}', [AdminOfficerController::class, 'resetPassword'])->name('admin.officer.reset.password');
+            //     Route::put('/update/status/{officer}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
+            //     Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
+            //     Route::put('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
+            //     Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
+            // });
         });
 
         Route::prefix('officer')->middleware('is-officer')->group(function () {
@@ -60,15 +60,16 @@ Route::prefix('v1')->group(function () {
         Route::post('/scan-qr-code', [UserController::class, 'scanQrCode'])->name('user.find.qrcode');
         Route::post('/get-images', [UserController::class, 'getImages'])->name('user.image.index');
     });
+    Route::get('/', DashboardController::class);
+    Route::prefix('petugas')->group(function () {
+        Route::get('/', [AdminOfficerController::class, 'index'])->name('admin.officer.index');
+        Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
+        Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
+        Route::put('/reset/password/{officer}', [AdminOfficerController::class, 'resetPassword'])->name('admin.officer.reset.password');
+        Route::put('/update/status/{officer}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
+        Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
+        Route::put('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
+        Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
+    });
 });
 
-// Route::prefix('petugas')->group(function () {
-//     Route::get('/', [AdminOfficerController::class, 'index'])->name('admin.officer.index');
-//     Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
-//     Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
-//     Route::put('/reset/password/{officer}', [AdminOfficerController::class, 'resetPassword'])->name('admin.officer.reset.password');
-//     Route::put('/update/status/{officer}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
-//     Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
-//     Route::put('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
-//     Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');
-// });

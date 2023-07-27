@@ -7,27 +7,32 @@ use App\Repositories\Admin\Officer\OfficerRepositoryInterface;
 use App\Repositories\OfficerImage\OfficerImageRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 use App\Repositories\Storage\StorageRepositoryInterface;
-use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class OfficerService
 {
-    protected $officerRepository, $roleRepository, $officerImageRepository, $storageRepository, $userRepository;
+    protected $officerRepository, $roleRepository, $officerImageRepository, $storageRepository;
 
     public function __construct(
         OfficerRepositoryInterface      $officerRepository,
         RoleRepositoryInterface         $roleRepository,
         OfficerImageRepositoryInterface $officerImageRepository,
-        StorageRepositoryInterface      $storageRepository,
-        UserRepositoryInterface         $userRepository
+        StorageRepositoryInterface      $storageRepository
     )
     {
         $this->officerRepository = $officerRepository;
         $this->officerImageRepository = $officerImageRepository;
         $this->roleRepository = $roleRepository;
         $this->storageRepository = $storageRepository;
-        $this->userRepository = $userRepository;
+    }
+
+    public function dashboard()
+    {
+        return [
+            'officers' => $this->officerRepository->getCountDataOfficer(),
+            'officer_online' => $this->officerRepository->getCountDataOfficerOnline(),
+        ];
     }
 
     public function index()

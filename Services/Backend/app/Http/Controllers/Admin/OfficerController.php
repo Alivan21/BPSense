@@ -91,6 +91,7 @@ class OfficerController extends Controller
 
     public function updateStatus(User $officer)
     {
-        return $this->officerService->updateStatus($officer);
+        // return $this->officerService->updateStatus($officer->loadMissing(['images', 'role'])) ? $this->apiSuccess(new OfficerResource($this->officerService->updateStatus($officer->loadMissing(['images', 'role']))), "Updated") : $this->apiError("Gagal Update Status");
+        return $this->apiSuccess(new OfficerResource($this->officerService->updateStatus($officer->loadMissing(['images', 'role']))), "Updated");
     }
 }

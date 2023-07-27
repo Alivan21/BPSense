@@ -8,32 +8,72 @@ export interface IOfficerStore {
   birth_date: string;
 }
 
-// export function useGetDataOfficer() {
-//   const { data } = useQuery({
-//     queryFn: async () => {
-//       const { data } = await axios.get<BaseResponse<any>>(
-//         `${API_URL}/petugas/`
-//       );
-//       return data as BaseResponse<any>;
-//     },
-//     refetchInterval: 5000,
-//   });
+export interface Officer {
+  id: number;
+  nip: string;
+  name: string;
+  birth_date: string;
+  status: number;
+  qrcode: string | null;
+  profile: string | null;
+  email: string | null;
+  phone: string | null;
+  role: string;
+  images: string[];
+}
 
-//   return { data };
-// }
+export function useGetDataDashboard() {
+  const { data, isLoading } = useQuery({
+    // queryKey: ["officer"],
+    queryFn: async () => {
+      const { data } = await axios.get<BaseResponse<any>>(`${API_URL}/`);
+      return data;
+    },
+    refetchInterval: 10000,
+  });
 
-// export function useCreateDataOfficer(props: IOfficerStore) {
-//   const formData = new FormData();
-//   formData.set("name", props.name);
-//   formData.set("nip", props.nip);
-//   formData.set("birth_date", props.birth_date);
-//   return useMutation({
-//     mutationFn: async () => {
-//       const { data } = await axios.post<BaseResponse<any>>(
-//         `${API_URL}/petugas/`,
-//         formData
-//       );
-//       return data;
-//     },
-//   });
-// }
+  return { data, isLoading };
+}
+export function useGetDataOfficer() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["officer"],
+    queryFn: async () => {
+      const { data } = await axios.get<BaseResponse<any>>(
+        `${API_URL}/petugas/`
+      );
+      return data;
+    },
+    refetchInterval: 10000,
+  });
+
+  return { data, isLoading };
+}
+
+export function useCreateDataOfficer(props: IOfficerStore) {
+  const formData = new FormData();
+  formData.set("name", props.name);
+  formData.set("nip", props.nip);
+  formData.set("birth_date", props.birth_date);
+  return useMutation({
+    mutationKey: ["officer"],
+    mutationFn: async () => {
+      const { data } = await axios.post<BaseResponse<any>>(
+        `${API_URL}/petugas/`,
+        formData
+      );
+      return data;
+    },
+  });
+}
+
+export function useUpdateStatusOfficer(id: number) {
+  return useMutation({
+    mutationKey: ["officer"],
+    mutationFn: async () => {
+      const { data } = await axios.put<BaseResponse<any>>(
+        `${API_URL}/petugas/update/status/${id}`
+      );
+      return data;
+    },
+  });
+}
