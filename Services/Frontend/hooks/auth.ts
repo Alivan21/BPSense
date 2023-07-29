@@ -25,8 +25,8 @@ export function useSignIn(props: ISignIn) {
       const { data } = await axios.post<BaseResponse<IAuthResponse>>(`${API_URL}/auth/login`, formData);
       if (data.data === undefined) return;
 
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.data.token}`;
       setToken(data.data.token);
+      axios.defaults.headers.common.Authorization = `Bearer ${data.data.token}`;
       const decoded = decodeJwt<AuthJwtPayload>(data.data.token);
       setJwtPayload(decoded);
     },
@@ -34,16 +34,12 @@ export function useSignIn(props: ISignIn) {
 }
 
 export function useSignOut() {
-  const { setToken, token } = useAuthContext();
+  const { setToken } = useAuthContext();
   const router = useRouter();
   return useMutation({
     mutationFn: async () => {
-      await axios.post(`${API_URL}/auth/logout`, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
-      delete axios.defaults.headers.common["Authorization"];
+      await axios.post(`${API_URL}/auth/logout`);
+      delete axios.defaults.headers.common.Authorization;
     },
     onSuccess() {
       setToken(undefined);

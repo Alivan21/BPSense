@@ -18,4 +18,4 @@ export type AuthJwtPayload = {
   role: string;
 };
 
-export const API_URL = process.env.NEXT_PUBLIC_API_BACKEND || "http://192.168.77.241:8000/api/v1";
+export const API_URL = process.env.NEXT_PUBLIC_API_BACKEND || "http://localhost:8000/api/v1";
