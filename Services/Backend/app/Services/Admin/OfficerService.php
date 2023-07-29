@@ -30,6 +30,14 @@ class OfficerService
         $this->userRepository = $userRepository;
     }
 
+    public function dashboard()
+    {
+        return [
+            'officers_count' => count($this->officerRepository->getAllData()),
+            'officer_active_count' => $this->officerRepository->getAllOfficersOnlineCount(),
+        ];
+    }
+
     public function index()
     {
         return $this->officerRepository->getAllData();

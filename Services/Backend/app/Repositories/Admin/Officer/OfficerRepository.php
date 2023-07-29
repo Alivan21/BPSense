@@ -15,6 +15,13 @@ class OfficerRepository implements OfficerRepositoryInterface
         $this->query = $officer->query();
     }
 
+    public function getAllOfficersOnlineCount()
+    {
+        return $this->query->with(['role'])->whereHas('role', function ($role) {
+            $role->where('name', 'officer');
+        })->where('status', 1)->count();
+    }
+
     public function getAllData()
     {
         return $this->query->with(['images', 'role'])->whereHas('role', function ($role) {
