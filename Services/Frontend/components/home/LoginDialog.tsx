@@ -1,12 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { ISignIn, useSignIn } from "@/hooks/auth";
 import Spinner from "../ui/spinner";
-import { useAuthContext } from "@/utils/providers/AuthProvider";
+import { useAuthContext } from "@/utils/Providers/AuthProvider";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
@@ -46,13 +52,18 @@ function LoginDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="text-lg font-semibold bg-blue-600 hover:bg-blue-700" size="sm">
+        <Button
+          className="text-lg font-semibold bg-blue-600 hover:bg-blue-700"
+          size="sm"
+        >
           Login
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[92%]">
         <DialogHeader>
-          <DialogTitle className="leading-normal w-[92%]">Login Petugas/Admin BPS</DialogTitle>
+          <DialogTitle className="leading-normal w-[92%]">
+            Login Petugas/Admin BPS
+          </DialogTitle>
         </DialogHeader>
         <Separator />
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -84,7 +95,11 @@ function LoginDialog() {
               required
             />
           </div>
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={submiting}>
+          <Button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700"
+            disabled={submiting}
+          >
             {submiting ? <Spinner /> : "Login Sekarang"}
           </Button>
         </form>

@@ -1,7 +1,7 @@
 import "@/styles/global.css";
 import { montserrat } from "@/styles/font";
-import QueryProvider from "@/utils/providers/QueryProvider";
-import { AuthProvider } from "@/utils/providers/AuthProvider";
+import QueryProvider from "@/utils/Providers/QueryProvider";
+import { AuthProvider } from "@/utils/Providers/AuthProvider";
 import { Toaster } from "react-hot-toast";
 
 const bodyClass = `bg-gray-100 ${montserrat.className}`;
@@ -11,7 +11,11 @@ export const metadata = {
   description: "Aplikasi untuk men-verifikasi pegawai BPS",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>

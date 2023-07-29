@@ -1,6 +1,6 @@
 import { API_URL, AuthJwtPayload, BaseResponse } from "@/utils/constant";
 import { decodeJwt } from "@/utils/jwt";
-import { useAuthContext } from "@/utils/providers/AuthProvider";
+import { useAuthContext } from "@/utils/Providers/AuthProvider";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -22,7 +22,10 @@ export function useSignIn(props: ISignIn) {
   formData.set("password", props.password);
   return useMutation({
     mutationFn: async () => {
-      const { data } = await axios.post<BaseResponse<IAuthResponse>>(`${API_URL}/auth/login`, formData);
+      const { data } = await axios.post<BaseResponse<IAuthResponse>>(
+        `${API_URL}/auth/login`,
+        formData
+      );
       if (data.data === undefined) return;
 
       setToken(data.data.token);
