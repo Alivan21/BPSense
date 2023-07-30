@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useCallback, useState, useEffect } from "react";
 import Webcam from "react-webcam";
+import ConfirmDialog, { TConfirmDialog } from "../confirm-dialog";
 
 let ml5: any;
 const modelURL = "https://teachablemachine.withgoogle.com/models/Qb16rx5VJ/";
@@ -12,9 +13,18 @@ function WebcamCapture() {
   const [picture, setPicture] = useState("");
   const [deviceId, setDeviceId] = useState<any>({});
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
-  const [predictionResult, setPredictionResult] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const webcamRef = useRef(null);
 
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const [confirmDialog, setConfirmDialog] = useState<TConfirmDialog>({
+    open: isDialogOpen,
+    isValid: false,
+    onClose: handleCloseDialog,
+  });
   const capture = useCallback(() => {
     if (webcamRef.current) {
       const imageSrc = (webcamRef.current as any).getScreenshot();
@@ -49,12 +59,29 @@ function WebcamCapture() {
   }
 
   const gotResult = async (error: any, results: string | any[]) => {
-    let result = "";
+    let result = 0;
     for (let i = 0; i < results.length; i++) {
-      const classPrediction = results[i].label + ": " + results[i].confidence.toFixed(2);
-      result += classPrediction + "\n";
+      if (results[0].label === "Kosong") {
+        result = 0;
+      } else {
+        const classPrediction = Number(results[0].confidence.toFixed(2));
+        result = classPrediction;
+      }
     }
-    setPredictionResult(result);
+    setIsDialogOpen(true);
+    if (result < 0.5) {
+      setConfirmDialog({
+        ...confirmDialog,
+        open: true,
+        isValid: false,
+      });
+    } else {
+      setConfirmDialog({
+        ...confirmDialog,
+        open: true,
+        isValid: true,
+      });
+    }
   };
 
   return (
@@ -81,7 +108,6 @@ function WebcamCapture() {
           onClick={(e) => {
             e.preventDefault();
             setPicture("");
-            setPredictionResult("");
           }}
         >
           Ulangi Foto
@@ -97,7 +123,12 @@ function WebcamCapture() {
           Ambil Foto
         </button>
       )}
-      <p>{predictionResult}</p>
+      <ConfirmDialog
+        data={confirmDialog.data}
+        isValid={confirmDialog.isValid}
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
+      />
     </>
   );
 }
