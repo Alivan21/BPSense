@@ -21,7 +21,7 @@ function ShowQR(props: ShowQRProps) {
           <img
             alt="logo"
             className="w-72"
-            src={`https://is3.cloudhost.id/bpsense${props.image}`}
+            src={props.image}
             width={0}
             height={0}
             placeholder="blur"
