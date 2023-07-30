@@ -6,6 +6,8 @@ use App\Models\User;
 
 interface OfficerRepositoryInterface
 {
+    public function getAllOfficersOnlineCount();
+    
     public function getAllData();
 
     public function searchDataWithNameOrNip(string $keyword);

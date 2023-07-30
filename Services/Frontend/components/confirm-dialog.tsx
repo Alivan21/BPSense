@@ -50,7 +50,7 @@ function ConfirmDialog(props: TConfirmDialog) {
           )}
         </div>
         <Button type="button" className="w-full bg-blue-600 hover:bg-blue-700" onClick={backToMenu}>
-          {props.data ? "Kembali ke Menu" : "Cek Ulang"}
+          {props.data ? "Tutup" : "Cek Ulang"}
         </Button>
       </DialogContent>
     </Dialog>

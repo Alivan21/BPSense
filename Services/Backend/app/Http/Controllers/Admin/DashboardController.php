@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Commons\Traits\apiResponse;
 use App\Http\Controllers\Controller;
+use App\Services\Admin\OfficerService;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    use apiResponse;
+
+    protected $officerService;
+
+    public function __construct(OfficerService $officerService)
+    {
+        $this->officerService = $officerService;
+    }
+
     /**
      * Handle the incoming request.
      *
@@ -15,6 +26,6 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+        return $this->apiSuccess($this->officerService->dashboard(), "Ok");
     }
 }

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import Navbar from "@/components/admin/navbar";
 
 export const metadata = {
   title: "BPSense | Admin",
@@ -8,7 +8,8 @@ export const metadata = {
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <main className="p-10 h-screen">{children}</main>
+      <Navbar />
+      <main className="px-20 py-5 mb-10 h-screen">{children}</main>
       <footer className="text-center my-5">©2023 All rights reserved by Mother's Prayer</footer>
     </>
   );

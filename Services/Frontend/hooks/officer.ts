@@ -1,32 +1,13 @@
-import { API_URL, BaseResponse } from "@/utils/constant";
-import { useAuthContext } from "@/utils/providers/AuthProvider";
+import { BaseResponse, API_URL } from "@/utils/constant";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-
-export interface IOfficer {
-  id: number;
-  nip: string;
-  name: string;
-  birth_date: string;
-  status: boolean;
-  qrcode: string;
-  profile: string;
-  email: string;
-  phone: string;
-  role: string;
-  images: [];
-}
+import { IOfficer } from "./admin";
 
 export function useGetOfficer() {
-  const { token } = useAuthContext();
   return useMutation({
     mutationKey: ["officer-profile"],
     mutationFn: async () => {
-      const { data } = await axios.post<BaseResponse<IOfficer>>(`${API_URL}/auth/get-profile`, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
+      const { data } = await axios.post<BaseResponse<IOfficer>>(`${API_URL}/auth/get-profile`);
       return data.data;
     },
   });
