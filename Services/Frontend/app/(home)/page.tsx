@@ -16,7 +16,6 @@ export default function Home() {
           <Card type="qr" />
         </Link>
         <ForwardedInputCodeCard />
-        <Card type="kontak" />
       </section>
     </>
   );
