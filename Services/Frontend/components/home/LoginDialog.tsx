@@ -24,6 +24,11 @@ function LoginDialog() {
     password: "",
   });
   const [submiting, setSubmiting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   const signInMutation = useSignIn(form);
 
@@ -47,22 +52,22 @@ function LoginDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button className="text-lg font-semibold bg-blue-600 hover:bg-blue-700" size="sm">
-          Login
+          Masuk
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[92%]">
         <DialogHeader>
-          <DialogTitle className="leading-normal w-[92%]">Login Petugas/Admin BPS</DialogTitle>
+          <DialogTitle className="leading-normal w-[92%]">Masuk Sebagai Petugas/Admin</DialogTitle>
         </DialogHeader>
         <Separator />
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
             <label htmlFor="identifier" className="text-gray-900 font-medium">
-              Username
+              NIP
             </label>
             <Input
               type="text"
-              placeholder="Username"
+              placeholder="123456789"
               name="identifier"
               id="identifier"
               value={form.identifier}
@@ -70,22 +75,29 @@ function LoginDialog() {
               required
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
             <label htmlFor="password" className="text-gray-900 font-medium">
               Password
             </label>
             <Input
-              type="password"
-              placeholder="*********"
+              type={showPassword ? "text" : "password"} // Toggle the type based on showPassword state
+              placeholder={showPassword ? "Password" : "*********"}
               name="password"
               id="password"
               value={form.password}
               onChange={handleChange}
               required
             />
+            <button
+              type="button"
+              className="absolute top-[73%] right-4 transform -translate-y-1/2 bg-transparent focus:outline-none"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i>}
+            </button>
           </div>
           <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={submiting}>
-            {submiting ? <Spinner /> : "Login Sekarang"}
+            {submiting ? <Spinner /> : "Masuk Sekarang"}
           </Button>
         </form>
       </DialogContent>

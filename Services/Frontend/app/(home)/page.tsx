@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Navbar />
       <section className="flex flex-col items-center gap-5">
-        <h1 className="text-2xl font-bold text-gray-800 mx-auto">Menu</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mx-auto">Menu Pengguna</h1>
         <Link href="/face">
           <Card type="face" />
         </Link>

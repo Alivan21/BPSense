@@ -61,9 +61,7 @@ export default function InputCodeCard() {
           </DialogTrigger>
           <DialogContent className="w-[92%]">
             <DialogHeader>
-              <DialogTitle className="leading-normal w-[92%]">
-                Verifikasi Petugas BPS Menggunakan Kode
-              </DialogTitle>
+              <DialogTitle className="leading-normal w-[92%]">Verifikasi Petugas Menggunakan NIP</DialogTitle>
             </DialogHeader>
             <Separator />
             <form className="flex flex-col gap-4" onSubmit={onSubmit}>

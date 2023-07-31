@@ -107,6 +107,7 @@
   padding: 10px 20px; /* Button padding */
   border: none; /* Remove button border */
   border-radius: 4px; /* Button border-radius for rounded corners */
+  margin-top: -20px;
 }
 #html5qr-code-full-region__scan_region {
   margin-top: -2.1rem;
