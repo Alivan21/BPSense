@@ -2,16 +2,7 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\ItemNotFoundException;
-use Illuminate\Validation\UnauthorizedException;
-use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -56,47 +47,47 @@ class Handler extends ExceptionHandler
 
         });
 
-        $this->renderable(function (Throwable $e) {
-            $statusCode = 500;
-            $message = [
-                env('APP_ENV') == 'local' && env('APP_DEBUG')
-                    ? 'Internal server error ' . $e->getMessage()
-                    : 'Internal server error',
-            ];
-            if ($e instanceof ValidationException) {
-                $messages = [];
-
-                foreach ($e->errors() as $error) {
-                    $messages[] = $error[0];
-                }
-                $message = $messages;
-                $statusCode = 422;
-            }
-
-            if ($e instanceof ModelNotFoundException || $e instanceof NotFoundHttpException || $e instanceof ItemNotFoundException) {
-                $statusCode = 404;
-                $message = ['The data you\'re looking for couldn\'t be found'];
-            }
-
-            if ($e instanceof UnauthorizedException || $e instanceof UnauthorizedHttpException || $e instanceof AuthenticationException) {
-                $statusCode = 401;
-                $message = [$e->getMessage()];
-            }
-
-
-            if ($e instanceof UnprocessableEntityHttpException) {
-                $statusCode = 400;
-                $message = [$e->getMessage()];
-            }
-
-            if ($e instanceof HttpException) {
-                $statusCode = $e->getStatusCode();
-                $message = [$e->getMessage()];
-            }
-
-            return response()->json([
-                'code' => $statusCode,
-                'message' => $message,], $statusCode);
-        });
+//        $this->renderable(function (Throwable $e) {
+//            $statusCode = 500;
+//            $message = [
+//                env('APP_ENV') == 'local' && env('APP_DEBUG')
+//                    ? 'Internal server error ' . $e->getMessage()
+//                    : 'Internal server error',
+//            ];
+//            if ($e instanceof ValidationException) {
+//                $messages = [];
+//
+//                foreach ($e->errors() as $error) {
+//                    $messages[] = $error[0];
+//                }
+//                $message = $messages;
+//                $statusCode = 422;
+//            }
+//
+//            if ($e instanceof ModelNotFoundException || $e instanceof NotFoundHttpException || $e instanceof ItemNotFoundException) {
+//                $statusCode = 404;
+//                $message = ['The data you\'re looking for couldn\'t be found'];
+//            }
+//
+//            if ($e instanceof UnauthorizedException || $e instanceof UnauthorizedHttpException || $e instanceof AuthenticationException) {
+//                $statusCode = 401;
+//                $message = [$e->getMessage()];
+//            }
+//
+//
+//            if ($e instanceof UnprocessableEntityHttpException) {
+//                $statusCode = 400;
+//                $message = [$e->getMessage()];
+//            }
+//
+//            if ($e instanceof HttpException) {
+//                $statusCode = $e->getStatusCode();
+//                $message = [$e->getMessage()];
+//            }
+//
+//            return response()->json([
+//                'code' => $statusCode,
+//                'message' => $message,], $statusCode);
+//        });
     }
 }
