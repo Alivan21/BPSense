@@ -51,8 +51,9 @@ function LoginDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="text-lg font-semibold bg-blue-600 hover:bg-blue-700" size="sm">
+        <Button className="text-base font-medium bg-blue-600 hover:bg-blue-700 flex items-center" size="sm">
           Masuk
+          <i className="fa-solid fa-arrow-right-to-bracket fa-sm ml-2" style={{ color: "#ffffff" }}></i>
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[92%]">
@@ -60,7 +61,7 @@ function LoginDialog() {
           <DialogTitle className="leading-normal w-[92%]">Masuk Sebagai Petugas/Admin</DialogTitle>
         </DialogHeader>
         <Separator />
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
             <label htmlFor="identifier" className="text-gray-900 font-medium">
               NIP
@@ -96,7 +97,11 @@ function LoginDialog() {
               {showPassword ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i>}
             </button>
           </div>
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={submiting}>
+          <Button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-sm font-medium"
+            disabled={submiting}
+          >
             {submiting ? <Spinner /> : "Masuk Sekarang"}
           </Button>
         </form>

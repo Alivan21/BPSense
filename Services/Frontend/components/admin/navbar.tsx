@@ -45,8 +45,8 @@ function Navbar() {
         </li>
       </ul>
       <div className="flex gap-3 items-center ml-auto text-gray-700 px-4 py-1 rounded-lg">
-        <Button className="font-semibold text-lg" onClick={handleSignout}>
-          <span className="font-medium mr-3">Logout</span>
+        <Button className="font-semibold text-base bg-red-600 hover:bg-red-700" onClick={handleSignout}>
+          <span className="font-medium mr-3">Keluar</span>
           <i className="fa-solid fa-power-off"></i>
         </Button>
       </div>

@@ -27,12 +27,13 @@ function NavbarPetugas() {
       </div>
       <div>
         <Button
-          className="text-lg font-semibold bg-red-600 hover:bg-red-700"
+          className="text-base font-medium bg-red-600 hover:bg-red-700"
           size="sm"
           onClick={handleSignOut}
           disabled={submiting}
         >
           Keluar
+          <i className="fa-solid fa-arrow-right-to-bracket fa-sm ml-2" style={{ color: "#ffffff" }}></i>
         </Button>
       </div>
     </nav>

@@ -14,7 +14,7 @@ export default function Navbar() {
           blurDataURL="/bpsense.svg"
           placeholder="blur"
         />
-        <span className="text-blue-600 font-bold text-xl">BPSense</span>
+        <span className="text-blue-600 font-bold text-lg">BPSense</span>
       </div>
       <div>
         <LoginDialog />

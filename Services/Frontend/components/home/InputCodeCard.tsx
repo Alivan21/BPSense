@@ -61,12 +61,14 @@ export default function InputCodeCard() {
           </DialogTrigger>
           <DialogContent className="w-[92%]">
             <DialogHeader>
-              <DialogTitle className="leading-normal w-[92%]">Verifikasi Petugas Menggunakan NIP</DialogTitle>
+              <DialogTitle className="leading-normal w-[92%] font-medium">
+                Verifikasi Petugas Menggunakan NIP
+              </DialogTitle>
             </DialogHeader>
             <Separator />
-            <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+            <form className="flex flex-col gap-6" onSubmit={onSubmit}>
               <div className="flex flex-col gap-2">
-                <label htmlFor="nip" className="text-gray-900 font-medium">
+                <label htmlFor="nip" className="text-gray-900 text-sm font-normal">
                   NIP
                 </label>
                 <Input
@@ -81,7 +83,7 @@ export default function InputCodeCard() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label htmlFor="birth_date" className="text-gray-900 font-medium">
+                <label htmlFor="birth_date" className="text-gray-900 text-sm font-normal">
                   Tanggal Lahir
                 </label>
                 <Input
@@ -94,7 +96,11 @@ export default function InputCodeCard() {
                   required
                 />
               </div>
-              <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={submiting}>
+              <Button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-sm font-normal"
+                disabled={submiting}
+              >
                 {submiting ? <Spinner /> : "Cek Petugas"}
               </Button>
             </form>

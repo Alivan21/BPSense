@@ -82,8 +82,8 @@
 }
 #html5-qrcode-button-camera-start::after {
   content: "Mulai Kamera";
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: normal;
   display: block;
   line-height: initial;
   background-color: #007bff; /* Button background color */
@@ -98,8 +98,8 @@
 }
 #html5-qrcode-button-camera-stop::after {
   content: "Hentikan Kamera";
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: normal;
   display: block;
   line-height: initial;
   background-color: #e53935; /* Button background color */

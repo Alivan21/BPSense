@@ -45,6 +45,7 @@ function WebcamCapture() {
     open: isDialogOpen,
     isValid: false,
     onClose: handleCloseDialog,
+    isFace: true,
   });
   const capture = useCallback(async () => {
     if (webcamRef.current) {
@@ -126,13 +127,6 @@ function WebcamCapture() {
         width={1280}
         videoConstraints={{ deviceId }}
       />
-      <div className="text-center border-2 border-gray-900 rounded-md">
-        {devices.map((device, key) => (
-          <button key={device.deviceId} onClick={() => setDeviceId(device.deviceId)}>
-            {getCameraType(device)}
-          </button>
-        ))}
-      </div>
       <button
         className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2"
         onClick={handleSwitchCamera}
@@ -161,7 +155,7 @@ function WebcamCapture() {
         </button>
       ) : (
         <button
-          className="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          className="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5"
           onClick={(e) => {
             e.preventDefault();
             capture();
@@ -182,6 +176,7 @@ function WebcamCapture() {
         isValid={confirmDialog.isValid}
         open={isDialogOpen}
         onClose={handleCloseDialog}
+        isFace={confirmDialog.isFace}
       />
     </>
   );

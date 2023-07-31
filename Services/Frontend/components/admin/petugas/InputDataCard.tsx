@@ -103,7 +103,11 @@ export default function InputDataCard() {
               <p className="text-sm text-red-400 font-medium">{response?.data.birth_date[0]}</p>
             )}
           </div>
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={submiting}>
+          <Button
+            type="submit"
+            className="text-base font-medium bg-blue-600 hover:bg-blue-700"
+            disabled={submiting}
+          >
             {submiting ? <Spinner /> : "Tambah Data"}
           </Button>
         </form>
