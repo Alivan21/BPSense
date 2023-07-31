@@ -45,14 +45,14 @@ export default function ChangeStatus({ status, id }: Props) {
         <DialogTrigger asChild>
           {status === 1 ? (
             <Button
-              className="text-white font-bold p-2 rounded-md bg-green-600 hover:bg-green-700"
+              className="text-basetext-white font-bold p-2 rounded-md bg-green-600 hover:bg-green-700"
               onClick={handleOpenChange}
             >
               Online
             </Button>
           ) : (
             <Button
-              className="text-white font-bold p-2 rounded-md bg-slate-600 hover:bg-slate-700"
+              className="text-base text-white font-bold p-2 rounded-md bg-slate-600 hover:bg-slate-700"
               onClick={handleOpenChange}
             >
               Offline
@@ -79,7 +79,7 @@ export default function ChangeStatus({ status, id }: Props) {
           <div className="flex flex-col gap-4">
             <Button
               type="button"
-              className="bg-blue-600 hover:bg-blue-700"
+              className="text-base bg-blue-600 hover:bg-blue-700"
               onClick={onClick}
               disabled={submiting}
             >

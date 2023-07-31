@@ -14,7 +14,9 @@ function ShowQR(props: ShowQRProps) {
       </DialogTrigger>
       <DialogContent className="w-[92%]">
         <DialogHeader>
-          <DialogTitle className="leading-normal text-center w-[92%]">Tunjukan QR</DialogTitle>
+          <DialogTitle className="leading-normal text-center w-[92%] text-base font-medium">
+            Tunjukan QR
+          </DialogTitle>
         </DialogHeader>
         <Separator />
         <div className="flex justify-center items-center">
