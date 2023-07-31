@@ -36,7 +36,6 @@ function PetugasPage() {
           </p>
         </div>
         <ShowQR image={data?.qrcode} />
-        <Card type="petugasFace" />
       </section>
     </>
   );
