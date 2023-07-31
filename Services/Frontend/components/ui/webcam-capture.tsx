@@ -2,6 +2,7 @@
 import { useRef, useCallback, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import ConfirmDialog, { TConfirmDialog } from "../confirm-dialog";
+import Spinner from "./spinner";
 
 let ml5: any;
 const modelURL = "https://teachablemachine.withgoogle.com/models/Qb16rx5VJ/";
@@ -14,6 +15,9 @@ function WebcamCapture() {
   const [deviceId, setDeviceId] = useState<any>({});
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // New state for loading state
+  const [result, setResult] = useState<number | null>(null); // New state for result
+
   const webcamRef = useRef(null);
 
   const handleCloseDialog = () => {
@@ -25,8 +29,9 @@ function WebcamCapture() {
     isValid: false,
     onClose: handleCloseDialog,
   });
-  const capture = useCallback(() => {
+  const capture = useCallback(async () => {
     if (webcamRef.current) {
+      setIsLoading(true); // Start loading state when capturing
       const imageSrc = (webcamRef.current as any).getScreenshot();
       setPicture(imageSrc);
     }
@@ -59,6 +64,7 @@ function WebcamCapture() {
   }
 
   const gotResult = async (error: any, results: string | any[]) => {
+    setIsLoading(false); // Stop loading state when result is received
     let result = 0;
     for (let i = 0; i < results.length; i++) {
       if (results[0].label === "Kosong") {
@@ -68,6 +74,7 @@ function WebcamCapture() {
         result = classPrediction;
       }
     }
+    setResult(result); // Store the result
     setIsDialogOpen(true);
     if (result < 0.5) {
       setConfirmDialog({
@@ -108,9 +115,17 @@ function WebcamCapture() {
           onClick={(e) => {
             e.preventDefault();
             setPicture("");
+            setResult(null); // Clear the previous result when capturing a new photo
           }}
+          disabled={isLoading}
         >
-          Ulangi Foto
+          {isLoading ? (
+            <div className="flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : (
+            "Ulang Foto"
+          )}
         </button>
       ) : (
         <button
@@ -119,8 +134,15 @@ function WebcamCapture() {
             e.preventDefault();
             capture();
           }}
+          disabled={isLoading || result !== null} // Disable the button when capturing or if there's a result
         >
-          Ambil Foto
+          {isLoading ? (
+            <div className="flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : (
+            "Ambil Foto"
+          )}
         </button>
       )}
       <ConfirmDialog
