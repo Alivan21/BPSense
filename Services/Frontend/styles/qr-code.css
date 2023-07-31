@@ -18,8 +18,14 @@
 #html5-qrcode-button-camera-permission:after {
   content: "Berikan Izin Kamera";
   text-indent: 0;
+  font-weight: bold;
   display: block;
   line-height: initial;
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Button padding */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Button border-radius for rounded corners */
 }
 #html5-qrcode-anchor-scan-type-change {
   font-size: 0;
@@ -77,6 +83,15 @@
 #html5-qrcode-button-camera-start::after {
   content: "Mulai Kamera";
   font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  line-height: initial;
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Button padding */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Button border-radius for rounded corners */
+  margin-bottom: 10px;
 }
 #html5-qrcode-button-camera-stop {
   font-size: 0;
@@ -84,6 +99,14 @@
 #html5-qrcode-button-camera-stop::after {
   content: "Hentikan Kamera";
   font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  line-height: initial;
+  background-color: #e53935; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Button padding */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Button border-radius for rounded corners */
 }
 #html5qr-code-full-region__scan_region {
   margin-top: -2.1rem;
