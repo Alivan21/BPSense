@@ -15,13 +15,30 @@ function WebcamCapture() {
   const [deviceId, setDeviceId] = useState<any>({});
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // New state for loading state
-  const [result, setResult] = useState<number | null>(null); // New state for result
+  const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState<number | null>(null);
+  const [selectedCamera, setSelectedCamera] = useState<string>("");
 
   const webcamRef = useRef(null);
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
+  };
+
+  const getCameraType = (device: MediaDeviceInfo): string => {
+    const { deviceId } = device;
+    const track = (webcamRef.current as any)?.stream
+      ?.getTracks()
+      .find((t: MediaStreamTrack) => t.getSettings().deviceId === deviceId);
+    if (track) {
+      const facingMode = track.getSettings().facingMode;
+      if (facingMode === "environment") {
+        return "Kamera Belakang";
+      } else if (facingMode === "user") {
+        return "Kamera Depan";
+      }
+    }
+    return `Camera ${devices.findIndex((device) => device.deviceId === deviceId) + 1}`;
   };
 
   const [confirmDialog, setConfirmDialog] = useState<TConfirmDialog>({
@@ -41,6 +58,13 @@ function WebcamCapture() {
     (mediaDevices: MediaDeviceInfo[]) => setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
     [setDevices]
   );
+  const handleSwitchCamera = useCallback(() => {
+    // Find the next camera in the list and switch to it
+    const currentIndex = devices.findIndex((device) => device.deviceId === deviceId);
+    const nextIndex = (currentIndex + 1) % devices.length;
+    setDeviceId(devices[nextIndex].deviceId);
+    setSelectedCamera(devices[nextIndex].deviceId);
+  }, [devices, deviceId]);
 
   useEffect(() => {
     ml5 = require("ml5");
@@ -105,10 +129,18 @@ function WebcamCapture() {
       <div className="text-center border-2 border-gray-900 rounded-md">
         {devices.map((device, key) => (
           <button key={device.deviceId} onClick={() => setDeviceId(device.deviceId)}>
-            {device.label || `Device ${key + 1}`}
+            {getCameraType(device)}
           </button>
         ))}
       </div>
+      <button
+        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2"
+        onClick={handleSwitchCamera}
+        disabled={isLoading || devices.length <= 1}
+        hidden={devices.length <= 1}
+      >
+        Ganti Kamera
+      </button>
       {picture ? (
         <button
           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
@@ -129,7 +161,7 @@ function WebcamCapture() {
         </button>
       ) : (
         <button
-          className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          className="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
           onClick={(e) => {
             e.preventDefault();
             capture();
