@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Commons\Enums\UserStatusEnum;
 use App\Commons\Traits\apiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\ReportofficerRequest;
 use App\Http\Requests\User\SearchNipAndBirthDateRequest;
 use App\Http\Resources\User\OfficerResource;
 use App\Services\User\UserService;
@@ -26,6 +27,17 @@ class UserController extends Controller
         return $this->responseCheckOfficer($this->userService->searchByNipAndBirthDate($request->validated()));
     }
 
+    private function responseCheckOfficer($result)
+    {
+        if ($result === UserStatusEnum::INACTIVE->value) {
+            return $this->apiSuccess(null, "Inactive", 403);
+        } else if ($result === UserStatusEnum::NOTFOUND->value) {
+            return $this->apiSuccess(null, "Not Found", 404);
+        } else {
+            return $this->apiSuccess(new OfficerResource($result), "Ok");
+        }
+    }
+
     public function scanQrCode(Request $request)
     {
         return $this->responseCheckOfficer($this->userService->scanQrCode($request->key));
@@ -36,13 +48,11 @@ class UserController extends Controller
         return $this->apiSuccess(OfficerResource::collection($this->userService->getOfficerDataSetImages()), "Ok");
     }
 
-    private function responseCheckOfficer($result) {
-        if ($result === UserStatusEnum::INACTIVE->value) {
-            return $this->apiSuccess(null, "Inactive", 403);
-        } else if ($result === UserStatusEnum::NOTFOUND->value) {
-            return $this->apiSuccess(null, "Not Found", 404);
-        } else {
-            return $this->apiSuccess(new OfficerResource($result), "Ok");
-        }
+    public function sendReportEmail(ReportofficerRequest $request)
+    {
+        
+        $this->userService->sendEmail($request->all());
+
+        return $this->apiSuccess(null, "Ok");
     }
 }

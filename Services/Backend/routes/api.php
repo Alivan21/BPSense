@@ -29,7 +29,7 @@ Route::prefix('v1')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout');
         Route::post('get-profile', [AuthController::class, 'getProfile'])->middleware('auth:api')->name('get-profile');
     });
-    
+
     Route::middleware(['auth:api'])->group(function () {
         Route::prefix('dashboard')->middleware(['is-admin'])->group(function () {
             Route::get('/', DashboardController::class);
@@ -59,6 +59,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/search', [UserController::class, 'searchByNipAndBirthDate'])->name('user.find.input');
         Route::post('/scan-qr-code', [UserController::class, 'scanQrCode'])->name('user.find.qrcode');
         Route::post('/get-images', [UserController::class, 'getImages'])->name('user.image.index');
+        Route::post('/send-report-email', [UserController::class, 'sendReportEmail'])->name('user.send.report.email');
     });
 });
 
@@ -67,7 +68,7 @@ Route::prefix('v1')->group(function () {
 //     Route::post('/', [AdminOfficerController::class, 'store'])->name('admin.officer.store');
 //     Route::get('/search', [AdminOfficerController::class, 'search'])->name('admin.officer.search');
 //     Route::put('/reset/password/{officer}', [AdminOfficerController::class, 'resetPassword'])->name('admin.officer.reset.password');
-//     Route::put('/update/status/{officer}', [AdminOfficerController::class, 'updateStatus'])->name('admin.officer.update.status');
+//     Route::put('/update/status/{officer}', [AdminOfficerController::class, 'update(Status'])->name('admin.officer.update.status');
 //     Route::get('/{officer}', [AdminOfficerController::class, 'show'])->name('admin.officer.show');
 //     Route::put('/{officer}', [AdminOfficerController::class, 'update'])->name('admin.officer.update');
 //     Route::delete('/{officer}', [AdminOfficerController::class, 'destroy'])->name('admin.officer.destroy');

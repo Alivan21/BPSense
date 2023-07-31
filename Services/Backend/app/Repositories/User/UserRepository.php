@@ -2,8 +2,10 @@
 
 namespace App\Repositories\User;
 
+use App\Mail\ReportOfficer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Mail;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -63,5 +65,11 @@ class UserRepository implements UserRepositoryInterface
         $user = $this->query->find($id);
         $user->status = !$user->status;
         return $user->save() ? $user : false;
+    }
+
+    public function sendEmail($data)
+    {
+        return Mail::to('admin@bps.go.id')->send(new ReportOfficer($data['nip'], $data['name'], $data['birthdate'], $data['image'], $data['message']));
+
     }
 }

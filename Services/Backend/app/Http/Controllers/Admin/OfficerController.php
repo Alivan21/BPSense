@@ -42,7 +42,11 @@ class OfficerController extends Controller
      */
     public function store(OfficerStoreRequest $request)
     {
-        return $this->apiSuccess(new OfficerResource($this->officerService->store($request->validated(), $request->file('image') ? $request->validate(['image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']) : [])), "Created", 201);
+        return $this->apiSuccess(new OfficerResource(
+            $this->officerService->store($request->validated(),
+                $request->file('image') ?
+                    $request->validate(['image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']) : [])),
+            "Created", 201);
     }
 
     /**

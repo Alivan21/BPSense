@@ -3,16 +3,18 @@
 namespace App\Services\User;
 
 use App\Commons\Enums\UserStatusEnum;
+use App\Repositories\Storage\StorageRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    protected $userRepository;
+    protected $userRepository, $storageRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, StorageRepositoryInterface $storageRepository)
     {
         $this->userRepository = $userRepository;
+        $this->storageRepository = $storageRepository;
     }
 
     public function searchByNipAndBirthDate(array $data)
@@ -50,5 +52,15 @@ class UserService
     public function getOfficerDataSetImages()
     {
         return $this->userRepository->getAllDataOfficer();
+    }
+
+    public function sendEmail(array $data)
+    {
+        $imagePath = $this->storageRepository->putFile(hash('sha256', $data['nip']), $data['image'], 'public');
+        $data['image'] = $imagePath;
+
+        $this->userRepository->sendEmail($data);
+
+        return true;
     }
 }

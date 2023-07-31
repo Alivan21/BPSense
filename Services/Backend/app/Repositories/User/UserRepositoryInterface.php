@@ -9,4 +9,6 @@ interface UserRepositoryInterface
     public function getByNipAndBirthDate(array $data);
 
     public function getAllDataOfficer();
+
+    public function sendEmail($data);
 }
