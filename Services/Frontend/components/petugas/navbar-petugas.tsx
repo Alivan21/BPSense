@@ -16,14 +16,14 @@ function NavbarPetugas() {
       <div className="flex gap-3 items-center">
         <Image
           alt="logo"
-          className="w-10"
+          className="w-10 rounded-sm"
           src="/bpsense.svg"
           width={0}
           height={0}
           blurDataURL="/bpsense.svg"
           placeholder="blur"
         />
-        <span className="font-bold text-xl">BPSense</span>
+        <span className="font-bold text-lg text-blue-600">BPSense</span>
       </div>
       <div>
         <Button
