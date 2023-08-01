@@ -33,7 +33,7 @@ export default function Card(props: CardProps) {
         <Image src={URL_MAP[props.type]} alt="card" height={100} width={100} priority />
       </div>
       <span className="text-base font-medium text-gray-800">{TITLE_MAP[props.type]}</span>
-      <i className="fa-solid fa-angle-right font-semibold" style={{ color: "#2563eb" }}></i>
+      <i className="fa-solid fa-angle-right font-semibold text-xl" style={{ color: "#2563eb" }}></i>
     </div>
   );
 }

@@ -102,7 +102,7 @@ function LoginDialog() {
             className="bg-blue-600 hover:bg-blue-700 text-sm font-medium"
             disabled={submiting}
           >
-            {submiting ? <Spinner /> : "Masuk Sekarang"}
+            {submiting ? <Spinner /> : "Masuk"}
           </Button>
         </form>
       </DialogContent>
