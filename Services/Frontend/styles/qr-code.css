@@ -50,6 +50,12 @@
   text-indent: 0;
   display: block;
   line-height: initial;
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Button padding */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Button border-radius for rounded corners */
+  margin-bottom: 10px;
 }
 #html5qr-code-full-region__dashboard_section {
   div:first-of-type {
@@ -59,7 +65,7 @@
         line-height: 0;
       }
       div:after {
-        content: "Anda dapat menarik dan melepas foto.";
+        content: "";
         text-indent: 0;
         display: block;
         line-height: initial;

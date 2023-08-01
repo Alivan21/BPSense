@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import Spinner from "@/components/ui/spinner";
 import { IOfficerStore, useCreateDataOfficer } from "@/hooks/admin";
 import { BaseResponse } from "@/utils/constant";
+import { toast } from "react-hot-toast";
 
 export default function InputDataCard() {
   const [form, setForm] = useState<IOfficerStore>({
@@ -16,6 +17,7 @@ export default function InputDataCard() {
   });
 
   const [submiting, setSubmiting] = useState(false);
+
   const [response, setResponse] = useState<BaseResponse<any>>();
 
   const createDataMutation = useCreateDataOfficer(form);
@@ -30,6 +32,7 @@ export default function InputDataCard() {
     setSubmiting(true);
     try {
       await createDataMutation.mutateAsync();
+      toast.success("Berhasil menambahkan data petugas");
     } catch (error: any) {
       if (error.response.data.code === 422) {
         setResponse(error.response.data);
@@ -74,7 +77,7 @@ export default function InputDataCard() {
             </label>
             <Input
               type="text"
-              placeholder="Kode Petugas"
+              placeholder="123456789"
               name="nip"
               id="nip"
               value={form.nip}
