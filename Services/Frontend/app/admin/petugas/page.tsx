@@ -42,9 +42,9 @@ function PetugasPage() {
               </tr>
             </thead>
             <tbody>
-              {data?.data?.map((officer: IOfficer) => (
+              {data?.data?.map((officer: IOfficer, index: number) => (
                 <tr key={officer.id} className="bg-white border-b">
-                  <td className="pl-6 py-4">1</td>
+                  <td className="pl-6 py-4">{index + 1}</td>
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {officer.name}
                   </th>
