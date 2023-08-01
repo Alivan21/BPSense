@@ -4,7 +4,7 @@ import LoginDialog from "./home/LoginDialog";
 export default function Navbar() {
   return (
     <nav className="flex gap-3 items-center justify-between">
-      <div className="flex gap-3 items-center bg-blue-600 p-1.5 pr-2 rounded-md">
+      <div className="flex gap-3 items-center">
         <Image
           alt="logo"
           className="w-10"
@@ -14,7 +14,7 @@ export default function Navbar() {
           blurDataURL="/bpsense.svg"
           placeholder="blur"
         />
-        <span className="text-white font-bold text-lg">BPSense</span>
+        <span className="font-bold text-lg">BPSense</span>
       </div>
       <div>
         <LoginDialog />

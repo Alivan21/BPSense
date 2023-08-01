@@ -10,7 +10,7 @@ export default function QRPage() {
         <h1 className="text-blue-600 font-semibold text-lg">Pindai Wajah Petugas </h1>
       </div>
       <div className="flex flex-1 flex-col gap-5 w-full">
-        <p className="text-base font-medium">Petunjuk : Arahakan Kamera ke Wajah Petugas Sensus</p>
+        <p className="text-base font-medium">Petunjuk : Arahkan Kamera ke Wajah Petugas Sensus</p>
         <WebcamCapture />
       </div>
     </>

@@ -23,7 +23,7 @@ function NavbarPetugas() {
           blurDataURL="/bpsense.svg"
           placeholder="blur"
         />
-        <span className="text-blue-600 font-bold text-xl">BPSense</span>
+        <span className="font-bold text-xl">BPSense</span>
       </div>
       <div>
         <Button
