@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import Spinner from "@/components/ui/spinner";
 import { IOfficer, useUpdateStatusOfficer } from "@/hooks/admin";
 import { BaseResponse } from "@/utils/constant";
+import { toast } from "react-hot-toast";
 
 interface Props {
   status: number;
@@ -27,6 +28,7 @@ export default function ChangeStatus({ status, id }: Props) {
     setSubmiting(true);
     try {
       await updateStatusMutation.mutateAsync();
+      toast.success("Berhasil mengubah status petugas");
     } catch (error: any) {
       if (error.response && error.response.data.code >= 400) {
         setResponse({
@@ -45,7 +47,7 @@ export default function ChangeStatus({ status, id }: Props) {
         <DialogTrigger asChild>
           {status === 1 ? (
             <Button
-              className="text-basetext-white font-bold p-2 rounded-md bg-green-600 hover:bg-green-700"
+              className="text-base text-white font-bold p-2 rounded-md bg-green-600 hover:bg-green-700"
               onClick={handleOpenChange}
             >
               Online

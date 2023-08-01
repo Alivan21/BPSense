@@ -3,6 +3,7 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import ConfirmDialog, { TConfirmDialog } from "../confirm-dialog";
 import Spinner from "./spinner";
+import { Button } from "./button";
 
 let ml5: any;
 const modelURL = "https://teachablemachine.withgoogle.com/models/Qb16rx5VJ/";
@@ -127,50 +128,51 @@ function WebcamCapture() {
         width={1280}
         videoConstraints={{ deviceId }}
       />
-      <button
-        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2"
-        onClick={handleSwitchCamera}
-        disabled={isLoading || devices.length <= 1}
-        hidden={devices.length <= 1}
-      >
-        Ganti Kamera
-      </button>
-      {picture ? (
-        <button
-          className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
-          onClick={(e) => {
-            e.preventDefault();
-            setPicture("");
-            setResult(null); // Clear the previous result when capturing a new photo
-          }}
-          disabled={isLoading}
+      <div className="flex gap-5 justify-center items-center">
+        {picture ? (
+          <Button
+            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full"
+            onClick={(e) => {
+              e.preventDefault();
+              setPicture("");
+              setResult(null); // Clear the previous result when capturing a new photo
+            }}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div className="flex justify-center items-center">
+                <Spinner />
+              </div>
+            ) : (
+              "Ulang Foto"
+            )}
+          </Button>
+        ) : (
+          <Button
+            className="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 w-full"
+            onClick={(e) => {
+              e.preventDefault();
+              capture();
+            }}
+            disabled={isLoading || result !== null} // Disable the button when capturing or if there's a result
+          >
+            {isLoading ? (
+              <div className="flex justify-center items-center">
+                <Spinner />
+              </div>
+            ) : (
+              "Ambil Foto"
+            )}
+          </Button>
+        )}
+        <Button
+          className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full"
+          onClick={handleSwitchCamera}
+          disabled={isLoading || devices.length <= 1}
         >
-          {isLoading ? (
-            <div className="flex justify-center items-center">
-              <Spinner />
-            </div>
-          ) : (
-            "Ulang Foto"
-          )}
-        </button>
-      ) : (
-        <button
-          className="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5"
-          onClick={(e) => {
-            e.preventDefault();
-            capture();
-          }}
-          disabled={isLoading || result !== null} // Disable the button when capturing or if there's a result
-        >
-          {isLoading ? (
-            <div className="flex justify-center items-center">
-              <Spinner />
-            </div>
-          ) : (
-            "Ambil Foto"
-          )}
-        </button>
-      )}
+          Ganti Kamera
+        </Button>
+      </div>
       <ConfirmDialog
         data={confirmDialog.data}
         isValid={confirmDialog.isValid}

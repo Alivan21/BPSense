@@ -28,7 +28,7 @@ export default function Card(props: CardProps) {
   };
 
   return (
-    <div className="w-[19.5rem] md:w-[24rem] h-[7rem] p-4 border-2 border-blue-600 rounded-xl flex gap-5 items-center cursor-pointer hover:scale-105">
+    <div className="w-[19.5rem] md:w-[24rem] h-[7rem] p-4 border-2 border-blue-600 rounded-xl flex gap-5 items-center cursor-pointer hover:scale-105 focus:ring-1">
       <div>
         <Image src={URL_MAP[props.type]} alt="card" height={100} width={100} priority />
       </div>

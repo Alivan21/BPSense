@@ -73,7 +73,7 @@ export default function InputCodeCard() {
                 </label>
                 <Input
                   type="text"
-                  placeholder="Kode Petugas"
+                  placeholder="123456789"
                   name="nip"
                   id="nip"
                   value={form.nip}

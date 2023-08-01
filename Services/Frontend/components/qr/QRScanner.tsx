@@ -38,7 +38,7 @@ export default function QRScanner() {
 
   return (
     <>
-      <Html5Qrcode fps={7} qrCodeSuccessCallback={onNewScanResult} disableFlip={false} />
+      <Html5Qrcode fps={7} qrCodeSuccessCallback={onNewScanResult} disableFlip={false} qrbox={288} />
       <ConfirmDialog
         data={confirmDialog.data}
         isValid={confirmDialog.isValid}
