@@ -10,7 +10,7 @@ export default function QRPage() {
         <h1 className="text-blue-600 font-semibold text-lg">Pindai Kode QR</h1>
       </div>
       <div className="flex flex-1 flex-col gap-10 w-full">
-        <p className="text-base font-medium">Petunjuk : Arahakan Kamera ke Kode QR Petugas Sensus</p>
+        <p className="text-base font-medium">Petunjuk : Arahkan Kamera ke Kode QR Petugas Sensus</p>
         <QRScanner />
       </div>
     </>

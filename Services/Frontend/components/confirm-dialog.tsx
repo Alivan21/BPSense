@@ -38,9 +38,9 @@ function ConfirmDialog(props: TConfirmDialog) {
         />
         <div className="flex flex-col gap-6 w-full">
           {props.isValid ? (
-            <h1 className="text-2xl font-bold text-green-500 text-center">Data Terverivikasi</h1>
+            <h1 className="text-2xl font-bold text-green-500 text-center">Data Terverifikasi</h1>
           ) : (
-            <h1 className="text-2xl font-bold text-red-500 text-center">Data Tidak Terverivikasi</h1>
+            <h1 className="text-2xl font-bold text-red-500 text-center">Data Tidak Terverifikasi</h1>
           )}
           {props.data && (
             <div className="flex flex-col gap-2">

@@ -64,7 +64,7 @@ function LoginDialog() {
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
             <label htmlFor="identifier" className="text-gray-900 font-medium">
-              NIP
+              Nama User/NIP
             </label>
             <Input
               type="text"
