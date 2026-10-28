@@ -3,6 +3,7 @@ import { montserrat } from "@/styles/font";
 import QueryProvider from "@/utils/providers/QueryProvider";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/utils/providers/AuthProvider";
+import Script from "next/script";
 
 const bodyClass = `bg-gray-100 ${montserrat.className}`;
 
