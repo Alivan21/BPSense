@@ -30,6 +30,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Toaster position="top-center" />
           </QueryProvider>
         </AuthProvider>
+        <Script
+          src="https://chat.navibiz.id/widget.js"
+          strategy="afterInteractive"
+          data-key="pk_live_lhOYKlPRWsLjZ2KGBXkncnmW45URsdnR"
+        />
       </body>
     </html>
   );
